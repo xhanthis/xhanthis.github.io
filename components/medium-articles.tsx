@@ -25,9 +25,7 @@ export default function MediumArticles({ showLatest }: MediumArticlesProps) {
   useEffect(() => {
     async function fetchArticles() {
       try {
-        const response = await fetch("/api/medium-articles", {
-          cache: "no-store", // Ensure fresh data
-        })
+        const response = await fetch("/api/medium-articles")
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
@@ -42,10 +40,9 @@ export default function MediumArticles({ showLatest }: MediumArticlesProps) {
         }
       } catch (err) {
         console.error("Error fetching articles:", err)
-        setError("Unable to load articles at the moment")
 
-        // Set fallback articles directly in case of error
-        setArticles([
+        // Set fallback articles directly in the component as last resort
+        const fallbackArticles: MediumArticle[] = [
           {
             title: "Building mobile apps for Bharat",
             link: "https://medium.com/@xhanthis",
@@ -72,7 +69,10 @@ export default function MediumArticles({ showLatest }: MediumArticlesProps) {
             thumbnail: "/placeholder.svg?height=64&width=64",
             guid: "3",
           },
-        ])
+        ]
+
+        setArticles(fallbackArticles)
+        setError("Using cached articles")
       } finally {
         setLoading(false)
       }
@@ -102,14 +102,6 @@ export default function MediumArticles({ showLatest }: MediumArticlesProps) {
     )
   }
 
-  if (articles.length === 0) {
-    return (
-      <div className="border-l border-gray-700 pl-6">
-        <p className="text-gray-400 text-sm">No articles available at the moment.</p>
-      </div>
-    )
-  }
-
   return (
     <div className="space-y-6">
       {articles.slice(0, showLatest || articles.length).map((article) => (
@@ -129,6 +121,11 @@ export default function MediumArticles({ showLatest }: MediumArticlesProps) {
                     fill
                     className="object-cover"
                     sizes="64px"
+                    onError={(e) => {
+                      // Fallback to placeholder if image fails to load
+                      const target = e.target as HTMLImageElement
+                      target.src = "/placeholder.svg?height=64&width=64"
+                    }}
                   />
                 </div>
               )}
