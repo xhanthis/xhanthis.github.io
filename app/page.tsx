@@ -34,25 +34,25 @@ export default function Home() {
             </p>
 
             <p>I like to read and watch movies. I also write sometimes. On weekends I advise startups on tech.</p>
+            
             <p>
-              You can reach me on{" "}
-              <Link href="https://www.x.com/xhanthis" className="text-blue-400 hover:underline">
-                Twitter ↗
-              </Link>{" "}
-              or {" "}
+              Book a call with me{" "}
+              <Link href="https://www.calendly.com/xhanthis/meet" className="text-blue-400 hover:underline">
+                here ↗
+              </Link>
+              , connect on{" "}
               <Link href="https://www.linkedin.com/in/merahulkulkarni" className="text-blue-400 hover:underline">
                 LinkedIn ↗
               </Link>
-              or {" "}
+              , or DM me on{" "}
               <Link href="https://www.hiredm.co/@xhanthis" className="text-blue-400 hover:underline">
                 HireDM ↗
               </Link>
             </p>
-
           </div>
         </div>
 
-        {/* GitHub Activity Sectio */}
+        {/* GitHub Activity Section */}
         <GitHubContributions />
 
         {/* Creations Section */}

@@ -1,9 +1,17 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+const geist = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+})
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+})
 
 export const metadata: Metadata = {
   title: "Rahul Kulkarni - Product & Tech Leader",
@@ -13,10 +21,27 @@ export const metadata: Metadata = {
   authors: [{ name: "Rahul Kulkarni" }],
   creator: "Rahul Kulkarni",
   publisher: "Rahul Kulkarni",
+  metadataBase: new URL('https://xhanthis.github.io'),
+  icons: {
+    icon: [
+      {
+        url: '/avatar.jpeg',
+        sizes: 'any',
+        type: 'image/jpeg',
+      }
+    ],
+    apple: [
+      {
+        url: '/avatar.jpeg',
+        sizes: '180x180',
+        type: 'image/jpeg',
+      }
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://rahulkulkarni.dev",
+    url: "https://xhanthis.github.io",
     title: "Rahul Kulkarni - Product & Tech Leader",
     description: "I love solving problems and building things. Currently building HireDM and scaling SaffronStays.",
     siteName: "Rahul Kulkarni",
@@ -38,7 +63,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -48,7 +72,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${geist.variable} ${geistMono.variable} antialiased`}>{children}</body>
     </html>
   )
 }
