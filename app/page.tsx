@@ -50,7 +50,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* GitHub Activity Section */}
+        {/* GitHub Activity Sectio */}
         <GitHubContributions />
 
         {/* Creations Section */}
