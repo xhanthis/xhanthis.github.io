@@ -25,15 +25,54 @@ export default function MediumArticles({ showLatest }: MediumArticlesProps) {
   useEffect(() => {
     async function fetchArticles() {
       try {
-        const response = await fetch("/api/medium-articles")
+        const response = await fetch("/api/medium-articles", {
+          cache: "no-store", // Ensure fresh data
+        })
+
         if (!response.ok) {
-          throw new Error("Failed to fetch articles")
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
+
         const data = await response.json()
-        setArticles(data.articles)
+
+        if (data.articles && Array.isArray(data.articles)) {
+          setArticles(data.articles)
+        } else {
+          throw new Error("Invalid response format")
+        }
       } catch (err) {
-        setError("Failed to load articles")
         console.error("Error fetching articles:", err)
+        setError("Unable to load articles at the moment")
+
+        // Set fallback articles directly in case of error
+        setArticles([
+          {
+            title: "Building mobile apps for Bharat",
+            link: "https://medium.com/@xhanthis",
+            pubDate: "2024-05-12T00:00:00.000Z",
+            description:
+              "Exploring the unique challenges and opportunities in building mobile applications for the Indian market...",
+            thumbnail: "/placeholder.svg?height=64&width=64",
+            guid: "1",
+          },
+          {
+            title: "India to Bharat: The Birth of India's Second Republic",
+            link: "https://medium.com/@xhanthis",
+            pubDate: "2024-01-21T00:00:00.000Z",
+            description: "A deep dive into the transformation of India and the emergence of a new national identity...",
+            thumbnail: "/placeholder.svg?height=64&width=64",
+            guid: "2",
+          },
+          {
+            title: "India's pandemic story",
+            link: "https://medium.com/@xhanthis",
+            pubDate: "2021-09-04T00:00:00.000Z",
+            description:
+              "As India completes sixty-three crore vaccines which are enough to vaccinate a quarter of our nation's population...",
+            thumbnail: "/placeholder.svg?height=64&width=64",
+            guid: "3",
+          },
+        ])
       } finally {
         setLoading(false)
       }
@@ -45,7 +84,7 @@ export default function MediumArticles({ showLatest }: MediumArticlesProps) {
   if (loading) {
     return (
       <div className="space-y-4">
-        {[...Array(3)].map((_, i) => (
+        {[...Array(showLatest || 3)].map((_, i) => (
           <div key={i} className="border-l border-gray-700 pl-6">
             <div className="animate-pulse">
               <div className="flex gap-4">
@@ -63,18 +102,10 @@ export default function MediumArticles({ showLatest }: MediumArticlesProps) {
     )
   }
 
-  if (error) {
-    return (
-      <div className="border-l border-gray-700 pl-6">
-        <p className="text-gray-400 text-sm">{error}</p>
-      </div>
-    )
-  }
-
   if (articles.length === 0) {
     return (
       <div className="border-l border-gray-700 pl-6">
-        <p className="text-gray-400 text-sm">No articles found.</p>
+        <p className="text-gray-400 text-sm">No articles available at the moment.</p>
       </div>
     )
   }
