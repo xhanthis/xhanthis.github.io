@@ -15,16 +15,18 @@ export default function Home() {
           <div className="space-y-4 text-gray-300 leading-relaxed">
             <p>I love solving problems and building things.</p>
 
+            {/* 
             <p>
               I'm building{" "}
               <Link href="https://www.hiredm.com" className="text-blue-400 hover:underline">
                 HireDM ↗
               </Link>
               , revolutizing how hiring works with AI.
-            </p>
+            </p> 
+            */}
 
             <p>
-              I work at{" "}
+              I am a Product Manager at{" "}
               <Link href="https://www.saffronstays.com" className="text-blue-400 hover:underline">
                 SaffronStays ↗
               </Link>
