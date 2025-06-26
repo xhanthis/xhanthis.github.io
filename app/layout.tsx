@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Rahul Kulkarni - Product & Tech Leader",
+  title: "Rahul - a random guy",
   description:
     "I love solving problems and building things. Currently building HireDM and scaling SaffronStays. Product & Tech advisor for startups.",
   keywords: ["Rahul Kulkarni", "Product Manager", "Tech Leader", "HireDM", "SaffronStays", "Startup Advisor"],

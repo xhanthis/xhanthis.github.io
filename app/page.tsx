@@ -33,8 +33,8 @@ export default function Home() {
               , where I scale everything product and tech from 1-10x, profitably.
             </p>
 
-            <p>I like to read and watch movies. I also write sometimes. On weekends I advise startups on tech.</p>
-            
+            {/* /*<p>I like to read and watch movies. I also write sometimes. On weekends I advise startups on tech.</p>
+             */}
             <p>
               Book a call with me{" "}
               <Link href="https://www.calendly.com/xhanthis/meet" className="text-blue-400 hover:underline">
