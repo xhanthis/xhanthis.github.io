@@ -26,7 +26,7 @@ export default function Home() {
             */}
 
             <p>
-              I am a Product Manager at{" "}
+              I am a Senior Product Manager at{" "}
               <Link href="https://www.saffronstays.com" className="text-blue-400 hover:underline">
                 SaffronStays ↗
               </Link>
