@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Rahul - a random guy",
+  title: "Rahul - A Random Guy",
   description:
-    "I love solving problems and building things. Currently building HireDM and scaling SaffronStays. Product & Tech advisor for startups.",
-  keywords: ["Rahul Kulkarni", "Product Manager", "Tech Leader", "HireDM", "SaffronStays", "Startup Advisor"],
+    "I love solving problems and building things. Happiest when designing and coding.",
+  keywords: ["Rahul Kulkarni", "Product Manager", "Tech Leader", "HireDM", "SaffronStays", "Startup Advisor", "Software Engineer"],
   authors: [{ name: "Rahul Kulkarni" }],
   creator: "Rahul Kulkarni",
   publisher: "Rahul Kulkarni",
@@ -26,7 +26,12 @@ export const metadata: Metadata = {
     icon: [
       {
         url: '/avatar.jpeg',
-        sizes: 'any',
+        sizes: '32x32',
+        type: 'image/jpeg',
+      },
+      {
+        url: '/avatar.jpeg',
+        sizes: '16x16',
         type: 'image/jpeg',
       }
     ],
@@ -37,19 +42,20 @@ export const metadata: Metadata = {
         type: 'image/jpeg',
       }
     ],
+    shortcut: '/avatar.jpeg',
   },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://xhanthis.github.io",
-    title: "Rahul Kulkarni - Product & Tech Leader",
-    description: "I love solving problems and building things. Currently building HireDM and scaling SaffronStays.",
+    title: "Rahul Kulkarni",
+    description: "I love solving problems and building things. Happiest when designing and coding.",
     siteName: "Rahul Kulkarni",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rahul Kulkarni - Product & Tech Leader",
-    description: "I love solving problems and building things. Currently building HireDM and scaling SaffronStays.",
+    title: "Rahul Kulkarni",
+    description: "I love solving problems and building things. Happiest when designing and coding.",
     creator: "@xhanthis",
   },
   robots: {
