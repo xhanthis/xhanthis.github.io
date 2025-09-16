@@ -44,7 +44,7 @@ export default function Home() {
               <Link href="https://twitter.com/xhanthis" className="hover:text-gray-900">
                 Twitter (X)
               </Link>
-              <Link href="https://www.calendly.com/xhanthis/meet" className="hover:text-gray-900">
+              <Link href="https://calendar.app.google/MTFKVZnChMqd8wiv7" className="hover:text-gray-900">
                 Schedule a call
               </Link>
             </div>
