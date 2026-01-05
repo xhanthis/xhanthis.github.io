@@ -37,9 +37,14 @@ export default function FitnessStats() {
     setMounted(true)
     async function fetchData() {
       try {
+        const apiKey = process.env.NEXT_PUBLIC_HEVY_API_KEY
+        if (!apiKey) {
+          throw new Error('HEVY_API_KEY is not configured')
+        }
+        
         const headers = {
           'accept': 'application/json',
-          'api-key': process.env.NEXT_PUBLIC_HEVY_API_KEY || '4b2d409d-b270-4c83-8b86-fd30e3b58e41'
+          'api-key': apiKey
         }
 
         // 1. Get Total Workouts
@@ -83,10 +88,15 @@ export default function FitnessStats() {
     
     setLoadingHistory(true)
     try {
+      const apiKey = process.env.NEXT_PUBLIC_HEVY_API_KEY
+      if (!apiKey) {
+        throw new Error('HEVY_API_KEY is not configured')
+      }
+      
       const res = await fetch('https://api.hevyapp.com/v1/workouts?page=1&pageSize=10', {
         headers: {
           'accept': 'application/json',
-          'api-key': process.env.NEXT_PUBLIC_HEVY_API_KEY || '4b2d409d-b270-4c83-8b86-fd30e3b58e41'
+          'api-key': apiKey
         }
       })
       const data = await res.json()
