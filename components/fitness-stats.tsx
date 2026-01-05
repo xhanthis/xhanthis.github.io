@@ -26,6 +26,7 @@ export default function FitnessStats() {
   const [totalWorkouts, setTotalWorkouts] = useState<number>(0)
   const [lastWorkout, setLastWorkout] = useState<SimpleWorkout | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -37,32 +38,33 @@ export default function FitnessStats() {
     setMounted(true)
     async function fetchData() {
       try {
-        const apiKey = process.env.NEXT_PUBLIC_HEVY_API_KEY
-        if (!apiKey) {
-          throw new Error('HEVY_API_KEY is not configured')
+        // 1. Get Total Workouts
+        const totalResponse = await fetch('/api/hevy/workouts?page=1&pageSize=1')
+        
+        if (!totalResponse.ok) {
+          const errorData = await totalResponse.json().catch(() => ({ error: 'Unknown error' }))
+          throw new Error(`Failed to fetch workouts: ${totalResponse.status} ${errorData.error || 'Unknown error'}`)
         }
         
-        const headers = {
-          'accept': 'application/json',
-          'api-key': apiKey
-        }
-
-        // 1. Get Total Workouts
-        const totalResponse = await fetch('https://api.hevyapp.com/v1/workouts?page=1&pageSize=1', { headers })
         const totalData = await totalResponse.json()
-        setTotalWorkouts(totalData.page_count)
+        setTotalWorkouts(totalData.page_count || 0)
 
         // 2. Get Last Workout
-        const lastResponse = await fetch('https://api.hevyapp.com/v1/workouts/events?page=1&pageSize=1&since=1970-01-01T00%3A00%3A00Z', { 
-          headers,
-          cache: 'no-store' 
-        })
+        const lastResponse = await fetch('/api/hevy/events?page=1&pageSize=1&since=1970-01-01T00:00:00Z')
+        
+        if (!lastResponse.ok) {
+          const errorData = await lastResponse.json().catch(() => ({ error: 'Unknown error' }))
+          throw new Error(`Failed to fetch workout events: ${lastResponse.status} ${errorData.error || 'Unknown error'}`)
+        }
+        
         const lastData = await lastResponse.json()
         if (lastData.events && lastData.events.length > 0) {
           setLastWorkout(lastData.events[0].workout)
         }
       } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to fetch fitness data'
         console.error("Failed to fetch fitness data:", error)
+        setError(errorMessage)
       } finally {
         setLoading(false)
       }
@@ -88,17 +90,13 @@ export default function FitnessStats() {
     
     setLoadingHistory(true)
     try {
-      const apiKey = process.env.NEXT_PUBLIC_HEVY_API_KEY
-      if (!apiKey) {
-        throw new Error('HEVY_API_KEY is not configured')
+      const res = await fetch('/api/hevy/workouts?page=1&pageSize=10')
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }))
+        throw new Error(`Failed to fetch workout history: ${res.status} ${errorData.error || 'Unknown error'}`)
       }
       
-      const res = await fetch('https://api.hevyapp.com/v1/workouts?page=1&pageSize=10', {
-        headers: {
-          'accept': 'application/json',
-          'api-key': apiKey
-        }
-      })
       const data = await res.json()
       if (data.workouts) {
         setHistory(data.workouts)

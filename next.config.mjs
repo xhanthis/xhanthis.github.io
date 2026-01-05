@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Removed 'output: export' to enable API routes for Vercel deployment
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
-  distDir: 'out',
   eslint: {
     ignoreDuringBuilds: true,
   },
