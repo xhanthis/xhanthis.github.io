@@ -21,18 +21,12 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
+        url: '/favicon.ico',
+        sizes: 'any',
+      },
+      {
         url: '/favicon.svg',
         type: 'image/svg+xml',
-      },
-      {
-        url: '/avatar.jpeg',
-        sizes: '32x32',
-        type: 'image/jpeg',
-      },
-      {
-        url: '/avatar.jpeg',
-        sizes: '16x16',
-        type: 'image/jpeg',
       }
     ],
     apple: [
@@ -42,7 +36,7 @@ export const metadata: Metadata = {
         type: 'image/jpeg',
       }
     ],
-    shortcut: '/favicon.svg',
+    shortcut: '/favicon.ico',
   },
   openGraph: {
     type: "website",

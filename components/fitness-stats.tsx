@@ -38,23 +38,45 @@ export default function FitnessStats() {
     setMounted(true)
     async function fetchData() {
       try {
-        // 1. Get Total Workouts
-        const totalResponse = await fetch('/api/hevy/workouts?page=1&pageSize=1')
+        // Note: API routes are not available in static export (GitHub Pages)
+        // This will gracefully fail and show placeholder data
+        const apiKey = process.env.NEXT_PUBLIC_HEVY_API_KEY
+        
+        if (!apiKey) {
+          throw new Error('Hevy API key not configured')
+        }
+
+        // 1. Get Total Workouts - Direct API call
+        const totalResponse = await fetch(
+          'https://api.hevyapp.com/v1/workouts?page=1&pageSize=1',
+          {
+            headers: {
+              'accept': 'application/json',
+              'api-key': apiKey
+            }
+          }
+        )
         
         if (!totalResponse.ok) {
-          const errorData = await totalResponse.json().catch(() => ({ error: 'Unknown error' }))
-          throw new Error(`Failed to fetch workouts: ${totalResponse.status} ${errorData.error || 'Unknown error'}`)
+          throw new Error(`Failed to fetch workouts: ${totalResponse.status}`)
         }
         
         const totalData = await totalResponse.json()
         setTotalWorkouts(totalData.page_count || 0)
 
-        // 2. Get Last Workout
-        const lastResponse = await fetch('/api/hevy/events?page=1&pageSize=1&since=1970-01-01T00:00:00Z')
+        // 2. Get Last Workout - Direct API call
+        const lastResponse = await fetch(
+          'https://api.hevyapp.com/v1/workouts/events?page=1&pageSize=1&since=1970-01-01T00:00:00Z',
+          {
+            headers: {
+              'accept': 'application/json',
+              'api-key': apiKey
+            }
+          }
+        )
         
         if (!lastResponse.ok) {
-          const errorData = await lastResponse.json().catch(() => ({ error: 'Unknown error' }))
-          throw new Error(`Failed to fetch workout events: ${lastResponse.status} ${errorData.error || 'Unknown error'}`)
+          throw new Error(`Failed to fetch workout events: ${lastResponse.status}`)
         }
         
         const lastData = await lastResponse.json()
@@ -90,11 +112,24 @@ export default function FitnessStats() {
     
     setLoadingHistory(true)
     try {
-      const res = await fetch('/api/hevy/workouts?page=1&pageSize=10')
+      const apiKey = process.env.NEXT_PUBLIC_HEVY_API_KEY
+      
+      if (!apiKey) {
+        throw new Error('Hevy API key not configured')
+      }
+
+      const res = await fetch(
+        'https://api.hevyapp.com/v1/workouts?page=1&pageSize=10',
+        {
+          headers: {
+            'accept': 'application/json',
+            'api-key': apiKey
+          }
+        }
+      )
       
       if (!res.ok) {
-        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }))
-        throw new Error(`Failed to fetch workout history: ${res.status} ${errorData.error || 'Unknown error'}`)
+        throw new Error(`Failed to fetch workout history: ${res.status}`)
       }
       
       const data = await res.json()
