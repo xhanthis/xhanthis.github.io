@@ -93,7 +93,7 @@ export default function MediumArticles({ showLatest = 3 }: MediumArticlesProps) 
         title: "India to Bharat: The Birth of India's Second Republic",
         link: "https://medium.com/stynd/india-to-bharat-the-birth-of-indias-second-republic-76bf067a45fe",
         pubDate: "2024-01-21T00:00:00.000Z",
-        description: "A deep dive into the transformation of India and the emergence of a new national identity. Examining the cultural, political, and social shifts that define modern India...",
+        description: "A deep dive into the transformation of India and the emergence of a new national identity. Examining the cultural, political, and social shifts that define modern India..",
         thumbnail: "https://miro.medium.com/v2/resize:fit:1400/1*YbEyeqI2BE4skpELnBzN2Q.jpeg",
         guid: "india-bharat-second-republic",
       },
