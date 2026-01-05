@@ -21,7 +21,7 @@ export default function FitnessStats() {
       try {
         const headers = {
           'accept': 'application/json',
-          'api-key': '4b2d409d-b270-4c83-8b86-fd30e3b58e41'
+          'api-key': process.env.NEXT_PUBLIC_HEVY_API_KEY || ''
         }
 
         // 1. Get Total Workouts
