@@ -113,14 +113,14 @@ export default function MediumArticles({ showLatest = 3 }: MediumArticlesProps) 
     return (
       <div className="space-y-4">
         {[...Array(showLatest)].map((_, i) => (
-          <div key={i} className="bg-gray-50 rounded-xl p-4">
+          <div key={i} className="bg-[#0d1117] rounded-xl p-4 border border-gray-800">
             <div className="animate-pulse">
               <div className="flex gap-4">
-                <div className="w-16 h-16 bg-gray-300 rounded flex-shrink-0"></div>
+                <div className="w-16 h-16 bg-gray-800 rounded flex-shrink-0"></div>
                 <div className="flex-1">
-                  <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                  <div className="h-3 bg-gray-200 rounded mb-1"></div>
-                  <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-4 bg-gray-800 rounded mb-2 w-3/4"></div>
+                  <div className="h-3 bg-gray-900 rounded mb-1 w-full"></div>
+                  <div className="h-3 bg-gray-900 rounded w-1/2"></div>
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default function MediumArticles({ showLatest = 3 }: MediumArticlesProps) 
   return (
     <div className="space-y-4">
       {articles.slice(0, showLatest).map((article) => (
-        <div key={article.guid} className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
+        <div key={article.guid} className="bg-[#0d1117] rounded-xl p-4 border border-gray-800 hover:border-gray-600 transition-all">
           <Link
             href={article.link}
             target="_blank"
@@ -141,7 +141,7 @@ export default function MediumArticles({ showLatest = 3 }: MediumArticlesProps) 
             className="block group"
           >
             <div className="flex gap-4">
-              <div className="w-16 h-16 flex-shrink-0 relative overflow-hidden rounded">
+              <div className="w-16 h-16 flex-shrink-0 relative overflow-hidden rounded bg-gray-800">
                 <Image
                   src={article.thumbnail}
                   alt={article.title}
@@ -152,17 +152,18 @@ export default function MediumArticles({ showLatest = 3 }: MediumArticlesProps) 
                     const target = e.target as HTMLImageElement
                     target.src = "/placeholder.svg?height=64&width=64"
                   }}
+                  suppressHydrationWarning
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-gray-900 font-semibold mb-1 group-hover:text-blue-600 transition-colors line-clamp-2">
+                <h3 className="text-gray-200 font-semibold mb-1 group-hover:text-blue-400 transition-colors line-clamp-2">
                   {article.title}
                 </h3>
-                <p className="text-gray-600 text-sm mb-2 line-clamp-2">
+                <p className="text-gray-500 text-sm mb-2 line-clamp-2">
                   {article.description}
                 </p>
                 <div className="flex items-center gap-2">
-                  <p className="text-gray-500 text-xs">
+                  <p className="text-gray-600 text-xs">
                     {new Date(article.pubDate).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "short",
@@ -183,3 +184,4 @@ export default function MediumArticles({ showLatest = 3 }: MediumArticlesProps) 
     </div>
   )
 }
+

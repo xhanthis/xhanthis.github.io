@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import GitHubContributions from "./github-contributions"
+import FitnessStats from "./fitness-stats"
 
 interface Slide {
   id: string
@@ -14,21 +15,11 @@ export default function Slider() {
   const slides: Slide[] = [
     {
         id: "github",
-        component: (
-          <div className="w-full text-center">
-            <h3 className="text-lg font-semibold mb-4 text-gray-900">I like coding</h3>
-            <div className="mb-6">
-              <p className="text-gray-700 text-sm leading-relaxed">
-                I love python, and I'm getting better at Go.
-              </p>
-            </div>
-            <GitHubContributions />
-          </div>
-        )
+        component: <GitHubContributions />
     },
     {
       id: "fitness",
-      component: <GitHubContributions isSliderMode={true} />
+      component: <FitnessStats />
     }
 
   ]
@@ -42,42 +33,46 @@ export default function Slider() {
   }
 
   return (
-    <div className="bg-gray-50 rounded-2xl p-8 relative min-h-[400px] flex items-center justify-center">
+    <div className="rounded-2xl relative min-h-[400px] flex items-center justify-center">
       {/* Slide Content */}
-      <div className="w-full">
+      <div className="w-full transition-opacity duration-500 ease-in-out">
         {slides[currentSlide].component}
       </div>
       
       {/* Navigation arrows */}
       <button 
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
+        className="absolute left-[-20px] lg:left-[-60px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md flex items-center justify-center transition-all text-white/50 hover:text-white"
+        aria-label="Previous slide"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" suppressHydrationWarning>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
       <button 
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center hover:shadow-lg transition-shadow"
+        className="absolute right-[-20px] lg:right-[-60px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-md flex items-center justify-center transition-all text-white/50 hover:text-white"
+        aria-label="Next slide"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" suppressHydrationWarning>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </button>
 
       {/* Slide indicators */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              index === currentSlide ? 'bg-gray-600' : 'bg-gray-300'
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentSlide ? 'bg-white w-6' : 'bg-white/20'
             }`}
+            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
     </div>
   )
-} 
+}
+ 

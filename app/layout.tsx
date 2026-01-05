@@ -1,20 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
 
-const geist = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "Rahul - A Random Guy",
+  title: "Rahul - Naam toh..",
   description:
     "I love solving problems and building things. Happiest when designing and coding.",
   keywords: ["Rahul Kulkarni", "Product Manager", "Tech Leader", "HireDM", "SaffronStays", "Startup Advisor", "Software Engineer"],
@@ -77,8 +73,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${geist.variable} ${geistMono.variable} antialiased`}>{children}</body>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <body className="antialiased bg-[#111111] text-white min-h-screen">
+        {children}
+      </body>
     </html>
   )
 }
