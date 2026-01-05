@@ -218,7 +218,7 @@ export default function FitnessStats() {
 
             {/* Modal Header */}
             <div className="px-6 py-4 border-b border-white/10 flex justify-between items-center shrink-0">
-              <h3 className="text-lg font-bold text-white">Workout Insights</h3>
+              <h3 className="text-lg font-bold text-white">My Workouts</h3>
               <button 
                 onClick={() => setIsModalOpen(false)}
                 className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white"
