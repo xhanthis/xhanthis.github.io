@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Rahul - Naam toh..",
+  title: "Rahul Kulkarni",
   description:
     "I love solving problems and building things. Happiest when designing and coding.",
   keywords: ["Rahul Kulkarni", "Product Manager", "Tech Leader", "HireDM", "SaffronStays", "Startup Advisor", "Software Engineer"],
