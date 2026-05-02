@@ -37,6 +37,7 @@ export default function Home() {
 
             <p>EDIT: Second happiest. Happiest when spending time with my girlfriend, of course.</p>
 
+             <p>EDIT 2: She's now wife.</p>
 
             <div className="flex justify-center gap-6 text-sm text-gray-500 mt-6">
               <Link href="https://www.linkedin.com/in/merahulkulkarni" className="hover:text-white transition-colors">
