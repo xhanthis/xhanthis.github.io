@@ -2,6 +2,9 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import CursorPredictor from "@/components/cursor-predictor"
+import Controls from "@/components/controls"
+import TenSecond from "@/components/ten-second"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -74,6 +77,9 @@ export default function RootLayout({
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className="antialiased bg-[#111111] text-white min-h-screen">
         {children}
+        <CursorPredictor />
+        <Controls />
+        <TenSecond />
       </body>
     </html>
   )

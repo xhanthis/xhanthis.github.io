@@ -2,13 +2,16 @@ import Link from "next/link"
 import Image from "next/image"
 import MediumArticles from "@/components/medium-articles"
 import Slider from "@/components/slider"
+import Corrections from "@/components/corrections"
+import ShipButton from "@/components/ship-button"
+import AddToCart from "@/components/add-to-cart"
 
 export default function Home() {
   return (
     <div className="min-h-screen text-white p-6">
       <div className="max-w-xl mx-auto py-16">
         {/* Avatar and Header Section */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 assemble">
           <div className="mb-6">
             <Image 
               src="/avatar.jpeg" 
@@ -33,11 +36,7 @@ export default function Home() {
               where I scale everything product and tech from 1-10x, profitably.
             </p>
 
-            <p>I am happiest when designing and coding.</p>
-
-            <p>EDIT: Second happiest. Happiest when spending time with my girlfriend, of course.</p>
-
-             <p>EDIT 2: She's now wife.</p>
+            <Corrections />
 
             <div className="flex justify-center gap-6 text-sm text-gray-500 mt-6">
               <Link href="https://www.linkedin.com/in/merahulkulkarni" className="hover:text-white transition-colors">
@@ -53,8 +52,14 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Ship + Cart: what I do, not what I say */}
+        <div className="grid gap-4 mb-16 assemble" style={{ animationDelay: "250ms" }}>
+          <ShipButton />
+          <AddToCart />
+        </div>
+
         {/* Slider Section */}
-        <div className="mb-16">
+        <div className="mb-16 assemble" style={{ animationDelay: "400ms" }}>
           <Slider />
         </div>
 
@@ -70,7 +75,7 @@ export default function Home() {
         </div> */}
 
         {/* What I'm Building Section */}
-        <div className="mb-16">
+        <div className="mb-16 assemble" style={{ animationDelay: "550ms" }}>
           <h2 className="text-xl font-bold mb-6 tracking-tight text-white">Currently building</h2>
           
           <div className="space-y-4">
@@ -111,7 +116,7 @@ export default function Home() {
         </div>
 
         {/* Writings Section */}
-        <div>
+        <div className="assemble" style={{ animationDelay: "700ms" }}>
           <h2 className="text-xl font-bold mb-6 tracking-tight text-white">Stuff I wrote</h2>
           <MediumArticles showLatest={3} />
           <div className="mt-6">

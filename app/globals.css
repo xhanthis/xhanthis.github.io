@@ -34,3 +34,33 @@ a:hover {
     grid-template-columns: repeat(53, minmax(0, 1fr));
   }
 }
+
+/* Self-assembling load: blocks fall into place from atoms */
+.assemble {
+  animation: assemble 700ms cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes assemble {
+  from { opacity: 0; transform: translateY(14px) scale(.985); filter: blur(6px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .assemble { animation: none; }
+}
+
+/* "Undo the design": one switch strips every decision. Browser defaults, 1996. */
+html.raw body,
+html.raw body *:not(script):not(style),
+html.raw body *::before,
+html.raw body *::after {
+  all: revert !important;
+}
+html.raw body {
+  background: #fff !important;
+  color: #000 !important;
+  font-family: "Times New Roman", Times, serif !important;
+  padding: 8px !important;
+  line-height: 1.2 !important;
+}
+html.raw img { max-width: 120px !important; height: auto !important; }
+html.raw canvas[data-predictor] { display: none !important; }
+html.raw a { color: #00e !important; text-decoration: underline !important; }
