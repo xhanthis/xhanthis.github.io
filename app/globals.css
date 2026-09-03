@@ -2,35 +2,319 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  background-color: #111111;
-  color: #ffffff;
-  line-height: 1.6;
+:root {
+  --bg: #fff;
+  --fg: #111;
+  --muted: #6f6f6f;
+  --faint: #a8a8a8;
+  --line: #e7e7e7;
+  --box: #fafafa;
+  --ok: #2f855a;
+  --bad: #c2410c;
+  --sel: #fff1a8;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0b0b;
+    --fg: #ececec;
+    --muted: #8d8d8d;
+    --faint: #5a5a5a;
+    --line: #242424;
+    --box: #121212;
+    --ok: #4ade80;
+    --bad: #fb923c;
+    --sel: #3b3300;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0b0b;
+  --fg: #ececec;
+  --muted: #8d8d8d;
+  --faint: #5a5a5a;
+  --line: #242424;
+  --box: #121212;
+  --ok: #4ade80;
+  --bad: #fb923c;
+  --sel: #3b3300;
+  color-scheme: dark;
 }
 
+* {
+  box-sizing: border-box;
+}
+html {
+  scrollbar-gutter: stable;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums;
+}
+::selection {
+  background: var(--sel);
+  color: var(--fg);
+}
 a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--faint);
 }
-
 a:hover {
-  text-decoration: none;
+  text-decoration-color: var(--fg);
+}
+:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+main {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 11vh 24px 64px;
+}
+p {
+  margin: 0 0 1.1em;
+}
+h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 2.6em 0 0.7em;
+  letter-spacing: 0.01em;
+}
 
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+.top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 2.2em;
+}
+.top img {
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+  object-fit: cover;
+  display: block;
+}
+.top b {
+  display: block;
+  font-weight: 600;
+}
+.top span {
+  color: var(--muted);
+}
+.tt {
+  margin-left: auto;
+  background: none;
+  border: 0;
+  color: var(--faint);
+  cursor: pointer;
+  font: inherit;
+  padding: 6px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+}
+.tt:hover {
+  color: var(--fg);
+}
 
-  .grid-cols-53 {
-    grid-template-columns: repeat(53, minmax(0, 1fr));
+/* scrubbable number, a la Tangle */
+.scrub {
+  border-bottom: 1px dotted var(--muted);
+  cursor: ew-resize;
+  user-select: none;
+  padding: 0 1px;
+  white-space: nowrap;
+}
+.scrub:hover,
+.scrub.on {
+  border-bottom-color: var(--fg);
+  color: var(--fg);
+}
+body.scrubbing,
+body.scrubbing * {
+  cursor: ew-resize !important;
+  user-select: none !important;
+}
+.prof {
+  transition: color 0.25s;
+}
+.prof.no {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.prof.yes {
+  text-decoration: underline;
+  text-decoration-color: var(--ok);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+canvas.ch {
+  display: block;
+  width: 100%;
+  height: 64px;
+  margin: 4px 0 1.2em;
+}
+
+del {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+ins {
+  text-decoration: none;
+  border-bottom: 1px dotted var(--muted);
+}
+sup.e {
+  font-size: 10px;
+  color: var(--faint);
+  margin-right: 3px;
+  font-weight: 500;
+  vertical-align: 0.4em;
+  letter-spacing: 0.02em;
+}
+
+/* the drawing pad */
+.pad {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--box);
+  border-radius: 8px;
+  height: 170px;
+  touch-action: none;
+  overflow: hidden;
+}
+.pad canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+.pad .ph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--faint);
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.pad.dirty .ph {
+  opacity: 0;
+}
+.guess {
+  display: flex;
+  justify-content: space-between;
+  min-height: 1.65em;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.guess b {
+  font-weight: 500;
+  color: var(--fg);
+  display: inline-block;
+}
+.guess b.pop {
+  animation: pop 0.35s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+@keyframes pop {
+  from {
+    transform: translateY(3px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.guess button {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--faint);
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--faint);
+}
+.guess button:hover {
+  color: var(--fg);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li {
+  display: flex;
+  gap: 12px;
+  padding: 5px 0;
+  align-items: baseline;
+}
+li .d {
+  color: var(--faint);
+  flex: none;
+  width: 5.2em;
+}
+li .s {
+  color: var(--muted);
+}
+ul.b li {
+  display: block;
+}
+ul.b li .s {
+  margin-left: 8px;
+}
+.row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.call .free {
+  color: var(--faint);
+  margin-left: 6px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.call:hover .free {
+  opacity: 1;
+}
+footer {
+  margin-top: 4em;
+  padding-top: 1.2em;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  color: var(--faint);
+  font-size: 13px;
+}
+@media (max-width: 480px) {
+  main {
+    padding-top: 48px;
+  }
+  li {
+    flex-direction: column;
+    gap: 0;
+  }
+  li .d {
+    width: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
