@@ -12,7 +12,7 @@ export default function Home() {
         <Image src="/avatar.jpeg" alt="" width={44} height={44} suppressHydrationWarning />
         <div>
           <b>Rahul Kulkarni</b>
-          <span>Product, SaffronStays</span>
+          <span>Builder</span>
         </div>
         <ThemeToggle />
       </div>
@@ -38,6 +38,16 @@ export default function Home() {
             SaffronStays App
           </Link>
           <span className="s">SaffronStays, now mobile — 10× better experiences, everywhere.</span>
+        </li>
+        <li>
+          <Link href="https://host.saffronstays.com/insights-app" target="_blank" rel="noopener noreferrer">
+            Insights Studio
+          </Link>
+          <span className="s">Internal analytics for SaffronStays — 100+ metrics, tracked in realtime.</span>
+        </li>
+        <li>
+          <span className="n">Staff App</span>
+          <span className="s">The internal day-to-day app for everyone at SaffronStays.</span>
         </li>
         <li>
           <Link href="https://ownspce.com" target="_blank" rel="noopener noreferrer">
