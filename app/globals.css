@@ -277,6 +277,10 @@ ul.b li {
 ul.b li .s {
   margin-left: 8px;
 }
+/* A project with no public link: reads as a name, not a dead link. */
+ul.b li .n {
+  color: var(--fg);
+}
 .row {
   display: flex;
   gap: 14px;
