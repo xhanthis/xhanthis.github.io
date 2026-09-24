@@ -34,6 +34,10 @@ export default function Home() {
       <h2>Building</h2>
       <ul className="b">
         <li>
+          <Link href="/god-skills/">God Skills</Link>
+          <span className="s">Seven Claude Code skills that behave like one company, and learn from every run.</span>
+        </li>
+        <li>
           <Link href="https://www.saffronstays.com/app" target="_blank" rel="noopener noreferrer">
             SaffronStays App
           </Link>
