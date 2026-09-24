@@ -1,48 +1,296 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import Link from "next/link"
 import ThemeToggle from "@/components/theme-toggle"
-import RouteDemo from "@/components/route-demo"
+import SkillTabs from "@/components/god-skills/skill-tabs"
+import RouteDemo from "@/components/god-skills/route-demo"
+import CopyCommand from "@/components/god-skills/copy-command"
+import {
+  IconCheckCircle,
+  IconCode,
+  IconCompass,
+  IconGitHub,
+  IconHeart,
+  IconLandmark,
+  IconList,
+  IconNpm,
+  IconPen,
+  IconPullRequest,
+  IconRefresh,
+  IconRupee,
+  IconScreens,
+  IconShield,
+  IconTerminal,
+  IconUser,
+} from "@/components/god-skills/skills"
 import "./god-skills.css"
 
-const SITE = "https://xhanthis.github.io/god-skills/"
+const HOME = "https://xhanthis.github.io/"
+const SITE = `${HOME}god-skills/`
 const REPO = "https://github.com/xhanthis/god-skills"
+const NPM = "https://www.npmjs.com/package/god-skills"
+const CHANGELOG = `${REPO}/blob/main/CHANGELOG.md`
+const OG_IMAGE = `${HOME}og/god-skills.png`
+const UPDATED = "2026-09-24"
+
+const TITLE = "God Skills — Claude Code skills that work like a team"
 const DESCRIPTION =
-  "Seven Claude Code skills that behave like one company: a CEO, a builder, a QA gate, a CFO, a PM, a writer and a wellbeing assistant. They hand work to each other and learn from every run."
+  "Seven open-source Claude Code skills that work like a team: CEO, builder, QA, CFO, PM, writer, ally. Every run ends in a tested, reviewed PR. npx god-skills"
 
 export const metadata: Metadata = {
-  title: "God Skills",
+  title: TITLE,
   description: DESCRIPTION,
-  keywords: ["God Skills", "Claude Code", "Claude Code skills", "agent skills", "god-skills", "god-agents", "AI coding agents"],
+  keywords: [
+    "God Skills",
+    "god-skills",
+    "Claude Code skills",
+    "Claude Code",
+    "Claude Code agents",
+    "Claude Code subagents",
+    "Claude Code hooks",
+    "AI coding agent workflow",
+    "AI code review",
+    "AI QA testing",
+    "god-agents",
+    "Codex CLI skills",
+    "Gemini CLI skills",
+    "Cursor rules",
+    "Rahul Kulkarni",
+  ],
+  authors: [{ name: "Rahul Kulkarni", url: HOME }],
+  creator: "Rahul Kulkarni",
+  category: "technology",
   alternates: { canonical: SITE },
-  openGraph: { type: "website", url: SITE, title: "God Skills", description: DESCRIPTION, siteName: "God Skills" },
-  twitter: { card: "summary", title: "God Skills", description: DESCRIPTION, creator: "@xhanthis" },
+  openGraph: {
+    type: "website",
+    url: SITE,
+    title: TITLE,
+    description: DESCRIPTION,
+    siteName: "God Skills",
+    locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "God Skills: seven Claude Code skills, one team" }],
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, creator: "@xhanthis", images: [OG_IMAGE] },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
 }
 
-const SEVEN: [string, string][] = [
-  ["god-ceo", "What is the real problem, is it worth doing, who does it, and what is the final call?"],
-  ["god-dev", "How do we design and implement this correctly, fast, and better than last time?"],
-  ["god-qa", "Does it actually work, is it safe, and can we prove it?"],
-  ["god-cfo", "Do the numbers reconcile, what should we charge, and what does the data say?"],
-  ["god-pm", "What should we build, why, for whom, how does it run, and how is the competitor built?"],
-  ["god-cmo", "Is this clear, short, and does it read like a human wrote it?"],
-  ["god-ally", "Is this pace sustainable, and should you be working right now?"],
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
+  ],
+}
+
+const NAV = [
+  ["#why", "Why"],
+  ["#skills", "The seven"],
+  ["#flow", "How it flows"],
+  ["#router", "Try it"],
+  ["#features", "Features"],
+  ["#agents", "Agents"],
+  ["#install", "Install"],
+  ["#faq", "FAQ"],
 ]
 
-const INSTALL: [string, string][] = [
-  ["npx god-skills", "every skill, asks global or project"],
-  ["npx god-skills list", "see the seven"],
-  ["npx god-skills doctor", "verify the install"],
-  ["npx god-agents --all", "subagents, /god, and the hook gates"],
+const FLOW = [
+  {
+    icon: IconUser,
+    title: "You ask, in plain words.",
+    text: "“Refunds are off by a rupee.” “Add CSV export.” “Should we build this?” No prompt engineering.",
+  },
+  {
+    icon: IconCompass,
+    title: "god-ceo frames it, when the ask is vague or crosses skills.",
+    text: "Reads the code, finds the real problem, decides if it is worth doing this week, picks the shortest chain. A clear single ask skips this step.",
+  },
+  {
+    icon: IconCode,
+    title: "god-dev plans, then builds.",
+    text: "Picks small, normal or deep. Syncs git, checks for a branch already doing it, lists what could go wrong, removes before it adds, and writes to the auto-reviewer’s checklist so the PR passes first time.",
+  },
+  {
+    icon: IconShield,
+    title: "god-qa proves it.",
+    text: "Runs the tests for real: backend, four screen sizes, keyboard, slow network, security when auth or input is touched. Scores every issue 1 to 5 and fixes up to three rounds. No PASS without proof.",
+  },
+  {
+    icon: IconRupee,
+    title: "Specialists check their part.",
+    text: "god-cfo recomputes any money a second way. god-cmo writes the PR body so a person can read it.",
+  },
+  {
+    icon: IconPullRequest,
+    title: "You get a pull request that is ready to merge.",
+    text: "Title with your deploy token. Body with problem, approach, rollback and test evidence. A test-cases doc, a manual guide, a change-log flowchart. The lesson saved for next time. One line from god-ally on your pace.",
+  },
 ]
 
-const OTHER_CLIS: [string, string][] = [
-  ["npx god-skills --codex", "./AGENTS.md"],
-  ["npx god-skills --gemini", "./GEMINI.md"],
-  ["npx god-skills --agents-md .cursor/rules/god.md", "any instruction file"],
+const FEATURES = [
+  {
+    icon: IconShield,
+    title: "Passes the auto-reviewer first time",
+    text: "Sanitized errors, indexed and bounded SQL, no personal data in logs or URLs, no secrets, no XSS. Written to the checklist, never gamed.",
+  },
+  {
+    icon: IconLandmark,
+    title: "Indian law by default",
+    text: "DPDP Act 2023 and ISO 27001 checks whenever personal data, consent or payments are touched.",
+  },
+  {
+    icon: IconScreens,
+    title: "Designed for every screen",
+    text: "390, 820, 1512 and 1440 wide, light and dark, keyboard and screen reader, slow network, on every UI change.",
+  },
+  {
+    icon: IconCheckCircle,
+    title: "Proof, not claims",
+    text: "Tests really run. A test that could not run is UNVERIFIED, never PASS. Two docs ship with every PR.",
+  },
+  {
+    icon: IconRupee,
+    title: "Numbers checked twice",
+    text: "Revenue, refunds, commissions, GST and splits recomputed a second way before they are trusted.",
+  },
+  {
+    icon: IconCompass,
+    title: "Decides before it builds",
+    text: "BUILD, SHIP, DEFER or STOP, ranked against the week, with the why written down.",
+  },
+  {
+    icon: IconRefresh,
+    title: "Learns from every run",
+    text: "Lessons scoped to you, the repo, or everyone. Universal ones become pull requests to the skills themselves.",
+  },
+  {
+    icon: IconPen,
+    title: "Reads like you wrote it",
+    text: "PR bodies, docs and notes without AI tells, in your voice, with one fixed signature.",
+  },
+  {
+    icon: IconHeart,
+    title: "Watches your hours",
+    text: "A Zen Score per day and a stop-for-tonight line when it matters.",
+  },
+  {
+    icon: IconTerminal,
+    title: "Any CLI",
+    text: "Plain Markdown, so Codex, Gemini CLI and Cursor follow the same rules. Hook gates stay Claude Code only.",
+  },
 ]
 
-const Ext = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <Link href={href} target="_blank" rel="noopener noreferrer">
+const FAQ = [
+  {
+    q: "What is God Skills?",
+    a: "God Skills is a free, open-source set of seven skills for Claude Code that work like a small company: god-ceo decides, god-dev builds, god-qa proves, god-cfo counts, god-pm asks why, god-cmo writes and god-ally watches your pace. Each run ends in a tested, reviewed pull request instead of a guess.",
+  },
+  {
+    q: "What is a Claude Code skill?",
+    a: "A skill is a Markdown file that Claude Code loads at the start of a session and follows for one kind of job. God Skills ships seven that hand work to each other and share one learning loop.",
+  },
+  {
+    q: "How do I install God Skills?",
+    a: "Run npx god-skills, choose global or project, and restart Claude Code. npx god-agents --all adds subagents, the /god command and the hook gates. Node 18 or newer, no other dependencies.",
+  },
+  {
+    q: "Does it work with Codex, Gemini CLI or Cursor?",
+    a: "Yes. npx god-skills --codex writes AGENTS.md, --gemini writes GEMINI.md, and --agents-md <file> targets any instruction file. The hook gates are a Claude Code feature and do not port.",
+  },
+  {
+    q: "What does god-qa actually test?",
+    a: "It runs the tests itself: backend and logic, the UI at 390, 820, 1512 and 1440 pixels, keyboard and screen reader, slow network, a security pass when the diff touches auth or input, and a DPDP and ISO 27001 pass when it touches personal data. Every issue is scored 1 to 5. A test that could not run is reported UNVERIFIED, never PASS.",
+  },
+  {
+    q: "What leaves my machine?",
+    a: "Nothing, except a summarized universal lesson that opens as a pull request to the skills repo, which you can turn off. Lessons, decisions, scorecards and the activity log stay in ~/.claude/god/.",
+  },
+  {
+    q: "Is God Skills free?",
+    a: "Yes. MIT licensed, zero dependencies, source on GitHub, packages god-skills and god-agents on npm.",
+  },
+]
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${SITE}#software`,
+      name: "God Skills",
+      alternateName: ["god-skills", "God Skills for Claude Code"],
+      description: DESCRIPTION,
+      url: SITE,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "macOS, Linux, Windows",
+      downloadUrl: NPM,
+      installUrl: NPM,
+      codeRepository: REPO,
+      license: "https://opensource.org/licenses/MIT",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      author: { "@id": `${HOME}#person` },
+      dateModified: UPDATED,
+      keywords: "Claude Code, skills, agents, hooks, AI code review, QA",
+      featureList: FEATURES.map((f) => f.title),
+    },
+    {
+      "@type": "Person",
+      "@id": `${HOME}#person`,
+      name: "Rahul Kulkarni",
+      url: HOME,
+      jobTitle: "Senior Product Manager",
+      worksFor: { "@type": "Organization", name: "SaffronStays", url: "https://www.saffronstays.com" },
+      sameAs: [
+        "https://github.com/xhanthis",
+        "https://www.linkedin.com/in/merahulkulkarni",
+        "https://twitter.com/xhanthis",
+        "https://medium.com/@xhanthis",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${HOME}#website`,
+      url: HOME,
+      name: "Rahul Kulkarni",
+      publisher: { "@id": `${HOME}#person` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": SITE,
+      url: SITE,
+      name: TITLE,
+      description: DESCRIPTION,
+      isPartOf: { "@id": `${HOME}#website` },
+      about: { "@id": `${SITE}#software` },
+      author: { "@id": `${HOME}#person` },
+      primaryImageOfPage: OG_IMAGE,
+      dateModified: UPDATED,
+      inLanguage: "en",
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Rahul Kulkarni", item: HOME },
+        { "@type": "ListItem", position: 2, name: "God Skills", item: SITE },
+      ],
+    },
+    {
+      "@type": "HowTo",
+      name: "Install God Skills for Claude Code",
+      totalTime: "PT1M",
+      step: [
+        { "@type": "HowToStep", name: "Install", text: "Run npx god-skills in a terminal." },
+        { "@type": "HowToStep", name: "Scope", text: "Choose global (~/.claude) or project (./.claude)." },
+        { "@type": "HowToStep", name: "Restart", text: "Restart Claude Code. Skills load at session start." },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+  ],
+}
+
+const Ext = ({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) => (
+  <Link href={href} target="_blank" rel="noopener noreferrer" className={className}>
     {children}
   </Link>
 )
@@ -71,237 +319,182 @@ function Shell({ rows }: { rows: [string, string][] }) {
 export default function GodSkills() {
   return (
     <main className="gs">
-      <div className="top">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+
+      <header className="top">
         <span className="mark" aria-hidden="true">
           🥷🏾
         </span>
         <div>
           <h1>God Skills</h1>
-          <span>seven skills, one company</span>
+          <p className="tag">Seven Claude Code skills. One team.</p>
         </div>
         <ThemeToggle />
-      </div>
+      </header>
 
       <p className="lede">
-        Seven <Ext href="https://claude.com/claude-code">Claude Code</Ext> skills that behave like one company instead of one
-        assistant guessing outside its expertise. A CEO, a builder, a QA gate, a CFO, a PM, a writer and a wellbeing
-        assistant. Each owns a domain, hands work to the next, and learns from every run.
+        God Skills is seven open-source skills for <Ext href="https://claude.com/claude-code">Claude Code</Ext> that work like
+        a small company. One decides, one builds, one tests, one checks the money, one asks why, one writes, one watches your
+        hours. Every run ends in a pull request that passed review, with the proof attached.
       </p>
 
-      <Shell rows={[["npx god-skills", "that is the whole install"]]} />
-
-      <div className="row">
-        <Ext href={REPO}>GitHub</Ext>
-        <Ext href="https://www.npmjs.com/package/god-skills">npm</Ext>
-        <Ext href={`${REPO}/blob/main/CHANGELOG.md`}>changelog</Ext>
-        <span>MIT, no dependencies</span>
+      <div className="hero-install">
+        <CopyCommand command="npx god-skills" />
+        <nav className="links" aria-label="Project links">
+          <Ext href={REPO} className="lnk">
+            <IconGitHub />
+            GitHub
+          </Ext>
+          <Ext href={NPM} className="lnk">
+            <IconNpm />
+            npm
+          </Ext>
+          <Ext href={CHANGELOG} className="lnk">
+            <IconList width={16} height={16} />
+            Changelog
+          </Ext>
+        </nav>
+        <p className="fine">MIT · zero dependencies · Node 18+</p>
       </div>
 
-      <h2>Why I built this</h2>
-      <p>
-        I run product and engineering at a startup, mostly alone. Claude Code made me fast. It did not make me a team.
-        One assistant was writing the code, judging the code, pricing the feature and drafting the announcement, and it was
-        mediocre at every handoff because there were no handoffs. A company has roles for a reason.
-      </p>
-      <p>
-        AI ships untested code. An assistant says <i>done</i> when it means <i>written</i>: screenshots nobody looked at,
-        tests that were described but never run, a pull request that would have failed review on the first line. God
-        Skills makes proof the default. Nothing is done until god-qa has run the tests itself and returned PASS. A test that
-        could not run is UNVERIFIED, never PASS.
-      </p>
-      <p>
-        Tools should learn from every run. Every correction I gave was gone by the next session. Now each lesson is scoped:
-        personal ones stay on my machine for good, repo ones stay with that codebase, and a rule that would hold for a
-        stranger at another company becomes a pull request to the skills themselves. The next install already knows.
-      </p>
-
-      <h2>Try the router</h2>
-      <RouteDemo />
-
-      <h2>The seven</h2>
-      <ul className="seven">
-        {SEVEN.map(([name, question]) => (
-          <li key={name}>
-            <b>{name}</b>
-            <span>{question}</span>
-          </li>
+      <nav className="toc" aria-label="On this page">
+        {NAV.map(([href, label]) => (
+          <a key={href} href={href}>
+            {label}
+          </a>
         ))}
-      </ul>
+      </nav>
 
-      <h2>How a request flows</h2>
-      <p className="flow">
-        <span>you</span>
-        <i>→</i>
-        <span>god-ceo</span>
-        <i>→</i>
-        <span>god-dev</span>
-        <i>→</i>
-        <span>god-qa</span>
-        <i>→</i>
-        <span>ship</span>
-      </p>
-      <ul className="pts">
-        <li>
-          <b>A vague ask</b> (“order amount is wrong”) goes to god-ceo first. It reads the codebase, reconstructs the real
-          problem, says whether it is worth doing this week, and picks the minimum chain. A clear single-skill ask skips
-          it.
-        </li>
-        <li>
-          <b>Code</b> goes to god-dev. It picks a mode: small, normal, or deep for anything touching money, data or auth.
-          It syncs git, checks for a branch already doing the work, removes before it adds, self-scores on god-qa’s scale,
-          then runs god-qa itself.
-        </li>
-        <li>
-          <b>Proof</b> is god-qa’s job. It starts with what could go wrong, writes and runs the tests, checks the UI at
-          four viewports, runs the security pass when the diff touches auth or input, scores every issue 1 to 5, fixes and
-          retests up to three times, and ends with a verdict and two documents: the test cases, and a manual guide with
-          ready-to-run curls.
-        </li>
-        <li>
-          <b>Money in the diff</b> goes to god-cfo, which recomputes it a second way before it is trusted.
-        </li>
-        <li>
-          <b>A decision</b> goes back to god-ceo, which attacks it first and then calls it: BUILD, SHIP, DEFER, DO NOT
-          BUILD. The why is written down, so “why does this exist” has an answer later.
-        </li>
-        <li>
-          <b>Every reply</b> ends with god-ally’s line: today’s pace against your own baseline, and when it matters, stop
-          for tonight.
-        </li>
-      </ul>
-      <p>
-        Loops: qa → dev → qa, three at most. cfo → dev → cfo. Stuck anywhere → god-ceo.
-      </p>
+      <section id="why" aria-labelledby="why-h">
+        <h2 id="why-h">Why I built God Skills</h2>
+        <p>
+          I&rsquo;m a senior product manager at <Ext href="https://www.saffronstays.com">SaffronStays</Ext> and I ship code
+          across several side projects. Claude Code made me fast, but the speed had a bill. Pull requests kept failing the
+          auto-reviewer. Deploys dragged. After a long session I could not say what had actually changed. Deciding what to
+          build, or whether to build it at all, was still on me. And the numbers: every revenue figure it touched, I re-checked
+          by hand.
+        </p>
+        <p>
+          God Skills is how I fixed that. Each job went to a specialist with its own rules, its own checks, and a memory of
+          what went wrong last time.
+        </p>
+      </section>
 
-      <h2>The learning loop</h2>
-      <p>
-        One loop, shared by all seven. A lesson is captured when you correct a skill, when another skill fails its work,
-        when an outcome turns later (a reverted PR, a wrong call), or from a one-line self-review. It is judged on who it
-        is true for, not on how often it repeats.
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Scope</th>
-            <th>Test</th>
-            <th>Goes to</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <b>universal</b>
-            </td>
-            <td>would hold for a stranger in another repo at another company</td>
-            <td>global lessons; may become a PR upstream</td>
-          </tr>
-          <tr>
-            <td>
-              <b>repo</b>
-            </td>
-            <td>true only in that codebase</td>
-            <td>that repo’s lessons, local</td>
-          </tr>
-          <tr>
-            <td>
-              <b>personal</b>
-            </td>
-            <td>your taste, tools, style</td>
-            <td>your machine, even after 100 sightings</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>
-        Value is severity × reach × confidence. A universal lesson scoring 18 or more opens a pull request on its first
-        sighting: a summarized rule only, never code, paths or names, labelled <code>learning</code>, at most one a day,
-        never merged by a machine. CI rejects anything identifying. Nothing else ever leaves your machine.
-      </p>
+      <section id="skills" aria-labelledby="skills-h">
+        <h2 id="skills-h">The seven Claude Code skills</h2>
+        <p className="sub">Each owns one question and hands work to the next. Pick one.</p>
+        <SkillTabs />
+      </section>
 
-      <h2>Rules every God obeys</h2>
-      <ul className="pts">
-        <li>
-          <b>No fabrication.</b> Numbers come from the repo, your analytics, or a named public source. Unknown impact is
-          reported as unknown, plus what to instrument to find out.
-        </li>
-        <li>
-          <b>Proof over claims.</b> Tests that could not run return UNVERIFIED, never PASS. A screenshot that was not looked
-          at is not a test.
-        </li>
-        <li>
-          <b>Adversarial before final.</b> god-ceo tries to destroy a plan before it is decided. god-qa’s what-could-go-wrong
-          list comes before any PASS.
-        </li>
-        <li>
-          <b>Integrity gate.</b> Before a PASS, god-qa re-runs one test, re-verifies one claim, and greps the final diff for
-          what a strict reviewer blocks. Sampling catches most shortcuts.
-        </li>
-        <li>
-          <b>Ship gate.</b> Written to a strict automated reviewer’s checklist, line by line: sanitized errors, indexed and
-          bounded SQL, no personal data in logs or URLs, no secrets, no XSS. Met, never gamed. A rule that cannot be met is
-          written into the PR body instead.
-        </li>
-        <li>
-          <b>Brevity.</b> Lead with the finding. If the review is longer than the change, the review is wrong.
-        </li>
-      </ul>
+      <section id="flow" aria-labelledby="flow-h">
+        <h2 id="flow-h">How a request flows through God Skills</h2>
+        <p className="sub">From a sentence to a production-grade pull request, every time.</p>
+        <ol className="flow">
+          {FLOW.map((step, i) => {
+            const Icon = step.icon
+            return (
+              <li key={step.title}>
+                <span className="num" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3>
+                    <Icon width={18} height={18} /> {step.title}
+                  </h3>
+                  <p>{step.text}</p>
+                </div>
+              </li>
+            )
+          })}
+        </ol>
+        <p className="loops">
+          If god-qa fails it, god-dev fixes from the scored list and god-qa reruns, three times at most. Stuck anywhere,
+          god-ceo steps in.
+        </p>
+      </section>
 
-      <h2>Agents and hooks</h2>
-      <p>
-        A skill is knowledge in your session. <Ext href="https://www.npmjs.com/package/god-agents">god-agents</Ext> turns
-        each one into a subagent with its own context window, tool allowlist and model, and adds the part a prompt cannot
-        talk its way out of: hooks.
-      </p>
-      <div className="layers">
-        <b>skills</b>
-        <i>knowledge</i>
-        <span>what good work looks like</span>
-        <b>agents</b>
-        <i>isolation</i>
-        <span>own context, own tools, own model</span>
-        <b>hooks</b>
-        <i>rules</i>
-        <span>a prompt can be ignored; a hook cannot</span>
-        <b>runtime</b>
-        <i>autonomy</i>
-        <span>scheduled runs, cost caps, findings filed</span>
-      </div>
-      <ul className="pts">
-        <li>
-          <b>Stop.</b> The session cannot end while god-dev’s edits lack a god-qa PASS.
-        </li>
-        <li>
-          <b>PreToolUse.</b> String-built SQL and reviewer tripwires are blocked before they land.
-        </li>
-        <li>
-          <b>SessionStart, UserPromptSubmit.</b> god-ally logs the moment and warns when a meeting is minutes away or you are
-          past your stop time.
-        </li>
-      </ul>
-      <p>Agents are opt-in. By default every skill runs inline, in your session, where you can watch it work.</p>
+      <section id="router" aria-labelledby="router-h">
+        <h2 id="router-h">Try the router</h2>
+        <p className="sub">Type a request. Watch who fires, in what order, and what you get back.</p>
+        <RouteDemo />
+      </section>
 
-      <h2>Install</h2>
-      <Shell rows={INSTALL} />
-      <p>Restart Claude Code after installing. Skills load at session start.</p>
-      <p>The skills are plain Markdown, so any agent that reads an instruction file can follow them.</p>
-      <Shell rows={OTHER_CLIS} />
+      <section id="features" aria-labelledby="features-h">
+        <h2 id="features-h">What you get out of the box</h2>
+        <ul className="features">
+          {FEATURES.map((f) => {
+            const Icon = f.icon
+            return (
+              <li key={f.title}>
+                <Icon />
+                <h3>{f.title}</h3>
+                <p>{f.text}</p>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
 
-      <h2>Proof</h2>
-      <p>
-        <code>npm test</code> runs over 300 assertions across both packages, with no credentials and no network, and CI
-        runs them on every pull request: the installer and its force and retire semantics, every skill’s contract (verdict
-        tokens, viewports, modes, memory paths, cores under 150 lines), every hook gate with its fail-open path, the runner
-        against real throwaway repos, and god-ally’s scoring down to the day boundary.
-      </p>
-      <p className="sig">
-        Every pull request the skills open ends with the same line: <b>🥷🏾 Authored by God</b>. It links here.
-      </p>
+      <section id="agents" aria-labelledby="agents-h">
+        <h2 id="agents-h">Agents and hooks</h2>
+        <p>
+          A skill is knowledge in your session. <Ext href="https://www.npmjs.com/package/god-agents">god-agents</Ext> turns each
+          one into a subagent with its own context window, tool allowlist and model, and adds the part a prompt cannot talk its
+          way out of: hooks.
+        </p>
+        <ul className="pts">
+          <li>
+            <b>Stop.</b> The session cannot end while god-dev&rsquo;s edits lack a god-qa PASS.
+          </li>
+          <li>
+            <b>PreToolUse.</b> String-built SQL and reviewer tripwires are blocked before they land.
+          </li>
+          <li>
+            <b>SessionStart, UserPromptSubmit.</b> god-ally logs the moment and warns when a meeting is minutes away or you are
+            past your stop time.
+          </li>
+        </ul>
+        <p>Agents are opt-in. By default every skill runs inline, in your session, where you can watch it work.</p>
+      </section>
+
+      <section id="install" aria-labelledby="install-h">
+        <h2 id="install-h">Install God Skills</h2>
+        <Shell
+          rows={[
+            ["npx god-skills", "every skill, asks global or project"],
+            ["npx god-skills list", "see the seven"],
+            ["npx god-skills doctor", "verify the install"],
+            ["npx god-agents --all", "subagents, /god, and the hook gates"],
+          ]}
+        />
+        <p>Restart Claude Code after installing. Skills load at session start.</p>
+        <p>Other CLIs read the same Markdown:</p>
+        <Shell
+          rows={[
+            ["npx god-skills --codex", "./AGENTS.md"],
+            ["npx god-skills --gemini", "./GEMINI.md"],
+            ["npx god-skills --agents-md .cursor/rules/god.md", "any instruction file"],
+          ]}
+        />
+      </section>
+
+      <section id="faq" aria-labelledby="faq-h">
+        <h2 id="faq-h">Frequently asked questions</h2>
+        <dl className="faq">
+          {FAQ.map((f) => (
+            <div key={f.q}>
+              <dt>{f.q}</dt>
+              <dd>{f.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
       <footer>
-        <span>Rahul Kulkarni · 2026</span>
-        <div className="links">
-          <Link href="/">home</Link>
-          <Ext href={REPO}>source</Ext>
-        </div>
+        <span>
+          Built by <Link href="/">Rahul Kulkarni</Link> · 2026
+        </span>
+        <Ext href={REPO}>source</Ext>
       </footer>
     </main>
   )

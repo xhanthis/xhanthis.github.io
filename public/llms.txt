@@ -1,0 +1,18 @@
+# Rahul Kulkarni — xhanthis.github.io
+
+> Personal site of Rahul Kulkarni, Senior Product Manager at SaffronStays and builder. Home of God Skills, seven open-source Claude Code skills that work like a team and end every run in a tested, reviewed pull request.
+
+## God Skills
+
+- [God Skills](https://xhanthis.github.io/god-skills/): what it is, why it exists, the seven skills (god-ceo, god-dev, god-qa, god-cfo, god-pm, god-cmo, god-ally), how a request flows, features, install, FAQ.
+- [Source on GitHub](https://github.com/xhanthis/god-skills): MIT, zero dependencies, Node 18+.
+- [npm: god-skills](https://www.npmjs.com/package/god-skills): the seven skills. Install with `npx god-skills`.
+- [npm: god-agents](https://www.npmjs.com/package/god-agents): subagents, the /god command, and hook gates for Claude Code.
+- [Changelog](https://github.com/xhanthis/god-skills/blob/main/CHANGELOG.md)
+
+Key facts: works with Claude Code natively and with Codex CLI, Gemini CLI and Cursor through plain Markdown (`--codex`, `--gemini`, `--agents-md`). god-qa runs tests for real at 390, 820, 1512 and 1440 px, with security and DPDP Act 2023 passes when the diff touches auth or personal data. Nothing leaves the machine except an opt-out summarized lesson opened as a pull request.
+
+## About
+
+- [Home](https://xhanthis.github.io/): projects, writing, contact.
+- [LinkedIn](https://www.linkedin.com/in/merahulkulkarni) · [X](https://twitter.com/xhanthis) · [Medium](https://medium.com/@xhanthis) · [GitHub](https://github.com/xhanthis)
