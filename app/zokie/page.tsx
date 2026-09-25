@@ -518,14 +518,14 @@ export default function ZokiePage() {
 
       <section id="faq" aria-labelledby="faq-h" className="prose">
         <h2 id="faq-h">Frequently asked questions</h2>
-        <dl className="faq">
+        <div className="faq">
           {FAQ.map((f) => (
-            <div key={f.q}>
-              <dt>{f.q}</dt>
-              <dd>{f.a}</dd>
-            </div>
+            <details key={f.q}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
           ))}
-        </dl>
+        </div>
       </section>
 
       <section className="end" aria-label="Get an invite">

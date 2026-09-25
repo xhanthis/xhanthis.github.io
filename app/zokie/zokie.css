@@ -802,22 +802,6 @@
 }
 
 /* Why, FAQ, end */
-.zk .faq {
-  margin: 0;
-}
-.zk .faq div + div {
-  margin-top: 28px;
-}
-.zk .faq dt {
-  font-weight: 650;
-  font-size: 17px;
-}
-.zk .faq dd {
-  margin: 6px 0 0;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.6;
-}
 .zk .end {
   text-align: center;
   padding: 72px 0;
@@ -1136,15 +1120,6 @@
   font-size: 18px;
   font-family: inherit;
 }
-.zk .prose .faq {
-  text-align: left;
-}
-.zk .prose .faq dt {
-  text-align: center;
-}
-.zk .prose .faq dd {
-  text-align: center;
-}
 
 /* Logo: the app's Facets cube and the "zokie." wordmark */
 .zk .zk-logo {
@@ -1174,6 +1149,62 @@
 }
 .zk .zk-logo .stop {
   color: var(--logo-stop);
+}
+
+/* FAQ as a toggle list: native details/summary, no script, answers stay in the HTML */
+.zk .faq {
+  margin: 0;
+  text-align: left;
+  border-top: 1px solid var(--line);
+}
+.zk .faq details {
+  border-bottom: 1px solid var(--line);
+}
+.zk .faq summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  padding: 18px 2px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--fg);
+  cursor: pointer;
+}
+.zk .faq summary::-webkit-details-marker {
+  display: none;
+}
+.zk .faq summary::after {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin: 0 6px 4px 0;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.zk .faq details[open] > summary::after {
+  margin-bottom: -4px;
+  transform: rotate(-135deg);
+}
+.zk .faq summary:hover::after {
+  border-color: var(--fg);
+}
+.zk .faq summary:focus-visible {
+  outline: 2px solid var(--muted);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.zk .faq details p {
+  margin: 0 0 20px;
+  padding-right: 32px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
 }
 
 /* Screen sizes. Kept last so they win over every base rule above. */
@@ -1449,12 +1480,13 @@
   .zk .prose p {
     font-size: 17px;
   }
-  .zk .prose .faq dt,
-  .zk .prose .faq dd {
-    text-align: left;
+  .zk .faq summary {
+    font-size: 16px;
+    padding: 16px 0;
   }
-  .zk .faq dd {
+  .zk .faq details p {
     font-size: 15px;
+    padding-right: 0;
   }
   .zk .end {
     padding: 48px 0;
@@ -1470,6 +1502,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .zk .faq summary::after {
+    transition: none;
+  }
   .zk .dots i,
   .zk .vis-ten i,
   .zk .ill-shell .cursor {
