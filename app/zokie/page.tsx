@@ -7,7 +7,8 @@ import "./zokie.css"
 const HOME = "https://xhanthis.github.io/"
 const SITE = `${HOME}zokie/`
 const REPO = "https://github.com/xhanthis/zokie"
-const INVITE = "https://x.com/xhanthis"
+const INVITE_EMAIL = "xhanthis5@gmail.com"
+const INVITE = `mailto:${INVITE_EMAIL}?subject=${encodeURIComponent("Invite to Zokie")}&body=${encodeURIComponent("Can I get an invite to Zokie?")}`
 const GOD = `${HOME}god-skills/`
 const OG_IMAGE = `${HOME}zokie/icon.png`
 const UPDATED = "2026-09-25"
@@ -148,7 +149,7 @@ const FAQ = [
   },
   {
     q: "Is Zokie free?",
-    a: "Yes. Zokie is invite only for now: message @xhanthis on X to get one. You bring your own Claude Code or Codex subscription.",
+    a: `Yes. Zokie is invite only for now: email ${INVITE_EMAIL} to get one. You bring your own Claude Code or Codex subscription.`,
   },
 ]
 
@@ -447,9 +448,9 @@ export default function ZokiePage() {
           <span className="lede-tail">Run 10 agents in parallel, seamlessly. Ship only what you approve.</span>
         </p>
         <div className="cta">
-          <Ext href={INVITE} className="btn primary">
+          <a href={INVITE} className="btn primary">
             Get an invite
-          </Ext>
+          </a>
         </div>
       </section>
 
@@ -516,7 +517,7 @@ export default function ZokiePage() {
       </section>
 
       <section id="faq" aria-labelledby="faq-h" className="prose">
-        <h2 id="faq-h">Frequently asked questions</h2>
+        <h2 id="faq-h">Questions?</h2>
         <div className="faq">
           {FAQ.map((f) => (
             <details key={f.q}>
@@ -529,9 +530,9 @@ export default function ZokiePage() {
 
       <section className="end" aria-label="Get an invite">
         <h2>For the Builders, by the Builder</h2>
-        <Ext href={INVITE} className="btn primary">
+        <a href={INVITE} className="btn primary">
           Get an invite
-        </Ext>
+        </a>
       </section>
 
       <footer>

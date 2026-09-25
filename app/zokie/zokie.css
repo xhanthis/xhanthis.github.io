@@ -1148,24 +1148,31 @@
 }
 
 /* FAQ as a toggle list: native details/summary, no script, answers stay in the HTML */
+.zk #faq {
+  max-width: 880px;
+}
 .zk .faq {
-  margin: 0;
+  margin: 8px 0 0;
   text-align: left;
-  border-top: 1px solid var(--line);
 }
 .zk .faq details {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px dashed #2f2f2f;
+}
+.zk .faq details:last-child {
+  border-bottom: 0;
 }
 .zk .faq summary {
   list-style: none;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 24px;
   min-height: 44px;
-  padding: 18px 2px;
-  font-size: 17px;
-  font-weight: 600;
+  padding: 26px 0;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
   color: var(--fg);
   cursor: pointer;
 }
@@ -1175,16 +1182,16 @@
 .zk .faq summary::after {
   content: "";
   flex: none;
-  width: 9px;
-  height: 9px;
-  margin: 0 6px 4px 0;
-  border-right: 1.5px solid var(--muted);
-  border-bottom: 1.5px solid var(--muted);
+  width: 11px;
+  height: 11px;
+  margin: 3px 6px 0 0;
+  border-right: 1.25px solid var(--muted);
+  border-bottom: 1.25px solid var(--muted);
   transform: rotate(45deg);
   transition: transform 0.2s ease;
 }
 .zk .faq details[open] > summary::after {
-  margin-bottom: -4px;
+  margin-top: 10px;
   transform: rotate(-135deg);
 }
 .zk .faq summary:hover::after {
@@ -1196,9 +1203,9 @@
   border-radius: 6px;
 }
 .zk .faq details p {
-  margin: 0 0 20px;
-  padding-right: 32px;
-  font-size: 16px;
+  margin: -8px 0 26px;
+  padding-right: 48px;
+  font-size: 17px;
   line-height: 1.6;
   color: var(--muted);
 }
@@ -1477,11 +1484,19 @@
     font-size: 17px;
   }
   .zk .faq summary {
-    font-size: 16px;
-    padding: 16px 0;
+    font-size: 18px;
+    padding: 20px 0;
+    gap: 16px;
+  }
+  .zk .faq summary::after {
+    margin-top: 2px;
+  }
+  .zk .faq details[open] > summary::after {
+    margin-top: 8px;
   }
   .zk .faq details p {
-    font-size: 15px;
+    margin-bottom: 20px;
+    font-size: 16px;
     padding-right: 0;
   }
   .zk .end {
