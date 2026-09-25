@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Logo from "./logo"
 
 type Speaker = "you" | "dev" | "test"
 type Line = { who: Speaker; text: string; card?: string }
@@ -168,9 +169,7 @@ export default function BoardDemo() {
           <i />
           <i />
         </span>
-        <span className="win-logo">
-          zokie<span className="win-dot" />
-        </span>
+        <Logo size={22} className="win-logo" />
         <span className="modes" aria-hidden="true">
           <span className="on">Code</span>
           <span>Data</span>

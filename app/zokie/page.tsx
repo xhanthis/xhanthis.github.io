@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import Link from "next/link"
 import ThemeToggle from "@/components/theme-toggle"
 import BoardDemo from "@/components/zokie/board-demo"
+import Logo from "@/components/zokie/logo"
 import "./zokie.css"
 
 const HOME = "https://xhanthis.github.io/"
@@ -36,6 +37,7 @@ export const metadata: Metadata = {
   creator: "Rahul Kulkarni",
   category: "technology",
   alternates: { canonical: SITE },
+  icons: { icon: [{ url: "/zokie/icon.png", type: "image/png" }], apple: [{ url: "/zokie/icon.png" }] },
   openGraph: {
     type: "website",
     url: SITE,
@@ -427,6 +429,10 @@ export default function ZokiePage() {
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap"
       />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&text=zokie.&display=swap"
+      />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <nav className="nav" aria-label="Site">
@@ -442,9 +448,7 @@ export default function ZokiePage() {
       </nav>
 
       <section className="hero" aria-labelledby="hero-h">
-        <span className="logo" aria-label="Zokie">
-          zokie<span className="dot" />
-        </span>
+        <Logo size={46} className="hero-logo" />
         <h1 id="hero-h">Build Great Things</h1>
         <p className="lede">
           <span className="lede-main">A lightweight agent IDE for remarkable people.</span>

@@ -2,6 +2,8 @@
 
 .zk {
   --accent: #9aa3ff;
+  --cube-top: #e6e1d6;
+  --cube-edge: #cbc5b8;
   max-width: 1320px;
   margin: 0 auto;
   padding: 20px 24px 48px;
@@ -80,21 +82,10 @@
   text-align: center;
   margin-bottom: 56px;
 }
-.zk .logo {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 3px;
-  font-size: 40px;
-  font-weight: 750;
-  letter-spacing: -0.04em;
-  line-height: 1;
+.zk .hero-logo {
+  font-size: 42px;
+  gap: 12px;
   margin-bottom: 32px;
-}
-.zk .dot {
-  width: 0.28em;
-  height: 0.28em;
-  border-radius: 50%;
-  background: var(--accent);
 }
 .zk .hero h1 {
   font-size: clamp(56px, 8.6vw, 112px);
@@ -211,18 +202,11 @@
   background: #28c840;
 }
 .zk .win-logo {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 3px;
   font-size: 20px;
-  font-weight: 750;
-  letter-spacing: -0.03em;
-}
-.zk .win-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--w-accent);
+  gap: 8px;
+  --cube-top: #ece8df;
+  --cube-edge: none;
+  --logo-accent: var(--w-accent);
 }
 .zk .modes {
   display: flex;
@@ -1221,4 +1205,44 @@
 }
 .zk .prose .faq dd {
   text-align: center;
+}
+
+/* Logo: the app's Facets cube and the "zokie." wordmark */
+.zk .zk-logo {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--fg);
+}
+.zk .win-logo {
+  color: var(--w-text);
+}
+.zk .zk-logo svg {
+  flex: none;
+  overflow: visible;
+}
+.zk .zk-logo .f-top {
+  fill: var(--cube-top);
+  stroke: var(--cube-edge);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.zk .zk-logo .f-right {
+  fill: var(--logo-accent, var(--accent));
+}
+.zk .zk-logo .stop {
+  color: var(--logo-accent, var(--accent));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .zk {
+    --cube-top: #ece8df;
+    --cube-edge: none;
+  }
+}
+:root[data-theme="dark"] .zk {
+  --cube-top: #ece8df;
+  --cube-edge: none;
 }
