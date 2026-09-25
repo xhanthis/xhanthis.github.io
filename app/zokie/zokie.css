@@ -1,7 +1,9 @@
 /* Zokie landing page. Scoped under main.zk; tokens and base type come from globals.css. */
 
 .zk {
-  --accent: #9aa3ff;
+  --accent: #8f8a80;
+  --logo-accent: #5a564e;
+  --logo-stop: #8f8a80;
   --cube-top: #e6e1d6;
   --cube-edge: #cbc5b8;
   max-width: 1320px;
@@ -132,9 +134,9 @@
   white-space: nowrap;
 }
 .zk .btn:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #0e0f1f;
+  background: var(--muted);
+  border-color: var(--muted);
+  color: var(--bg);
 }
 .zk .fine {
   font-size: 13px;
@@ -160,7 +162,9 @@
   --w-text: #ece8df;
   --w-muted: #a8a399;
   --w-faint: #8f8a80;
-  --w-accent: #9aa3ff;
+  --w-accent: #5a564e;
+  --w-accent-ink: #ece8df;
+  --w-accent-text: #a8a399;
   --w-green: #7edba6;
   --w-red: #f0836a;
   --w-amber: #e0a84a;
@@ -207,6 +211,7 @@
   --cube-top: #ece8df;
   --cube-edge: none;
   --logo-accent: var(--w-accent);
+  --logo-stop: var(--w-accent-text);
 }
 .zk .modes {
   display: flex;
@@ -317,7 +322,7 @@
 }
 .zk .task:focus-visible,
 .zk .new:focus-visible {
-  outline: 2px solid var(--w-accent);
+  outline: 2px solid var(--w-accent-text);
   outline-offset: 1px;
 }
 .zk .task-top {
@@ -416,7 +421,7 @@
   color: var(--w-faint);
 }
 .zk .msgs .dev .who {
-  color: var(--w-accent);
+  color: var(--w-accent-text);
 }
 .zk .msgs .test .who {
   color: var(--w-green);
@@ -502,7 +507,7 @@
   padding: 5px 14px;
   border-radius: 999px;
   background: var(--w-accent);
-  color: #0e0f1f;
+  color: var(--w-accent-ink);
   font-size: 13px;
   font-weight: 600;
 }
@@ -712,7 +717,7 @@
   gap: 2px;
 }
 .zk .leaf span {
-  color: var(--accent);
+  color: var(--fg);
   font-weight: 600;
 }
 .zk .leaf small {
@@ -760,7 +765,7 @@
   font-weight: 600;
 }
 .zk .step.dev {
-  border-color: var(--accent);
+  border-color: var(--muted);
 }
 .zk .step.test {
   border-color: var(--ok);
@@ -1007,7 +1012,7 @@
   overflow: hidden;
 }
 .zk .ill-data .n {
-  color: var(--accent);
+  color: var(--muted);
   font: 11px ui-monospace, Menlo, monospace;
   flex: none;
 }
@@ -1124,7 +1129,7 @@
   border: 1px solid var(--line);
 }
 .zk .thumb.a {
-  background: linear-gradient(135deg, var(--accent), #5fcb8f);
+  background: linear-gradient(135deg, #8f8a80, #5fcb8f);
 }
 .zk .thumb.b {
   background: linear-gradient(135deg, #f0836a, #e0a84a);
@@ -1231,18 +1236,20 @@
   stroke-linejoin: round;
 }
 .zk .zk-logo .f-right {
-  fill: var(--logo-accent, var(--accent));
+  fill: var(--logo-accent);
 }
 .zk .zk-logo .stop {
-  color: var(--logo-accent, var(--accent));
+  color: var(--logo-stop);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .zk {
     --cube-top: #ece8df;
     --cube-edge: none;
+    --logo-stop: #a8a399;
   }
 }
 :root[data-theme="dark"] .zk {
   --cube-top: #ece8df;
   --cube-edge: none;
+  --logo-stop: #a8a399;
 }
