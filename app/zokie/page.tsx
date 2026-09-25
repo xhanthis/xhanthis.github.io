@@ -13,7 +13,7 @@ const GOD = `${HOME}god-skills/`
 const OG_IMAGE = `${HOME}zokie/icon.png`
 const UPDATED = "2026-09-25"
 
-const TITLE = "Zokie — a light agent IDE for macOS. Build Great Things."
+const TITLE = "Zokie | A lightweight agent IDE for builders"
 const DESCRIPTION =
   "Zokie is a 14 MB native macOS IDE where agents write the code and you review the diff. Run ten Claude Code or Codex agents side by side on one MacBook. Free download."
 
@@ -451,8 +451,8 @@ export default function ZokiePage() {
         <Logo size={46} className="hero-logo" />
         <h1 id="hero-h">Build Great Things</h1>
         <p className="lede">
-          <span className="lede-main">A lightweight agent IDE for remarkable people.</span>
-          <span className="lede-tail">Ten agents write the code. You decide what ships.</span>
+          <span className="lede-main">A lightweight agent IDE for builders.</span>
+          <span className="lede-tail">10 agents write the code at once, you decide what ships.</span>
         </p>
         <div className="cta">
           <Ext href={DOWNLOAD} className="btn primary">
