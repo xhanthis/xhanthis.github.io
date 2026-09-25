@@ -56,73 +56,46 @@ export const viewport: Viewport = {
   ],
 }
 
-const TESTIMONIALS = [
+const FEATURES = [
   {
-    quote: "Three agents in VS Code froze my MacBook. Ten in Zokie and the fan doesn't spin.",
-    who: "Rahul",
-    role: "Product manager, built Zokie",
+    id: "review",
+    title: "They write. You review.",
+    text: "Every task is a chat on the left and a diff on the right. You never scroll a file tree looking for what changed; the change is the screen. Read it, ask for a fix, merge.",
+    visual: "diff",
   },
   {
-    quote: "I stopped reading code and started reading diffs. That is the whole job now.",
-    who: "Early tester",
-    role: "Backend engineer",
+    id: "light",
+    title: "Ten agents on one MacBook.",
+    text: "Zokie is a 14 MB native app on the system webview, not an Electron editor. Open ten tasks, let ten agents run, and the fan stays quiet. That is the whole reason it exists.",
+    visual: "ten",
   },
   {
-    quote: "Every task gets its own worktree without me thinking about it. Branches just appear.",
-    who: "Early tester",
-    role: "Full-stack developer",
+    id: "branch",
+    title: "Every task on its own branch.",
+    text: "Your first message names the task, picks feat, bug or chore, and gives each attached repo a git worktree on a fresh branch. Ten agents never touch each other's files.",
+    visual: "branch",
+  },
+  {
+    id: "models",
+    title: "Claude Code and Codex. Your subscriptions.",
+    text: "Pick Opus, Fable, Sonnet or any GPT model with its effort level, per task. Zokie runs the first-party CLIs you already pay for. No relay, no markup, no keys handed over.",
+    visual: "models",
+  },
+  {
+    id: "skills",
+    title: "A team, not a chatbot.",
+    text: "God Skills come built in. Send a task to Dev and it builds; Test proves it; the answer comes back as a pull request with evidence. Questions and permissions land as amber cards you cannot miss.",
+    visual: "chain",
   },
 ]
 
-const FEATURES = [
-  {
-    title: "Agent Board, not an editor",
-    text: "Tasks on the left, the agent chat in the middle, the diff against main on the right. You review; they write.",
-  },
-  {
-    title: "Ten agents on one MacBook",
-    text: "Wails and the system webview keep the whole app around 14 MB. Run a task per agent and stay under the fan.",
-  },
-  {
-    title: "A worktree per task, on its own branch",
-    text: "Your first message names the task, picks feat, bug or chore, and gives every attached repository a worktree and branch.",
-  },
-  {
-    title: "Claude Code and Codex, side by side",
-    text: "Pick Opus, Fable, Sonnet or any GPT model with its effort level. The picker shows which CLIs are installed and signed in.",
-  },
-  {
-    title: "God Skills built in",
-    text: "Send to Dev, Test, CEO, CFO, PM or CMO. The chat follows the handoffs and the board reads their scorecards.",
-  },
-  {
-    title: "Needs-you cards",
-    text: "Permission requests and questions land as amber cards. Nothing is denied silently, nothing runs without you.",
-  },
-  {
-    title: "Data mode",
-    text: "Swap the diff for a notebook the agents fill in, with a uv Python env, pandas and matplotlib ready.",
-  },
-  {
-    title: "Your Day",
-    text: "Zen score against your own week, spend today with a daily cap, plan limits for each CLI and a 30-day timeline.",
-  },
-  {
-    title: "PR status and Merge",
-    text: "gh in the loop: see checks, open the PR, merge from the board when the tests are green.",
-  },
-  {
-    title: "Language servers and a terminal",
-    text: "Hover and go-to-definition through gopls, pyright and typescript-language-server. One login shell per task.",
-  },
-  {
-    title: "Attachments",
-    text: "Drop screenshots and files into the chat. The agent gets the paths, you get thumbnails.",
-  },
-  {
-    title: "Local by default",
-    text: "Config in a JSON file, chat in SQLite, worktrees on disk, a JSON log with no message text. Nothing phones home.",
-  },
+const ALSO = [
+  ["Data mode", "the diff pane becomes a notebook the agents fill in, with Python, pandas and matplotlib ready"],
+  ["Your Day", "spend today against a daily cap, plan limits for each CLI, and a 30-day timeline of what shipped"],
+  ["PR status and Merge", "checks and the merge button on the board, through gh"],
+  ["Terminal and language servers", "one login shell per task; hover and go-to-definition through gopls, pyright and tsserver"],
+  ["Attachments", "drop screenshots and files into the chat; the agent gets the paths"],
+  ["Local by default", "config in a JSON file, chat in SQLite, worktrees on disk, a log with no message text"],
 ]
 
 const FAQ = [
@@ -165,7 +138,7 @@ const jsonLd = {
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       author: { "@id": `${HOME}#person` },
       dateModified: UPDATED,
-      featureList: FEATURES.map((f) => f.title),
+      featureList: [...FEATURES.map((f) => f.title), ...ALSO.map((a) => a[0])],
     },
     {
       "@type": "Person",
@@ -210,6 +183,108 @@ function Ext({ href, children, className }: { href: string; children: React.Reac
   )
 }
 
+/**
+ * Static illustration for one feature block, built from markup so it follows the theme.
+ * @param kind - which of the five visuals to draw
+ */
+function Visual({ kind }: { kind: string }) {
+  if (kind === "diff")
+    return (
+      <div className="vis vis-diff" aria-hidden="true">
+        <div className="vis-h">
+          <span>refund.ts</span>
+          <span className="counts">
+            <em className="add">+2</em> <em className="del">−1</em>
+          </span>
+        </div>
+        <pre>
+          {"  const paise = amount * 100\n"}
+          <span className="del">{"- return Math.floor(paise * share) / 100\n"}</span>
+          <span className="add">{"+ return roundHalfEven(paise * share) / 100\n"}</span>
+          {"}"}
+        </pre>
+        <div className="vis-merge">Merge</div>
+      </div>
+    )
+  if (kind === "ten")
+    return (
+      <div className="vis vis-ten" aria-hidden="true">
+        <ul>
+          {["Refund rounding", "CSV export", "Bump axios", "Onboarding copy", "Slow search", "Retry webhooks", "Dark mode", "Invoice PDF", "Rate limits", "Flaky e2e"].map(
+            (t) => (
+              <li key={t}>
+                <i />
+                {t}
+              </li>
+            ),
+          )}
+        </ul>
+        <div className="vis-stat">
+          <b>14 MB</b>
+          <span>the whole app</span>
+        </div>
+      </div>
+    )
+  if (kind === "branch")
+    return (
+      <div className="vis vis-branch" aria-hidden="true">
+        <div className="tree">
+          <div className="trunk">main</div>
+          <div className="leaf">
+            <span>you/feat/csv-export</span>
+            <small>~/.zokie/tasks/csv-export/ssalliance</small>
+          </div>
+          <div className="leaf">
+            <span>you/bug/refund-rounding</span>
+            <small>~/.zokie/tasks/refund-rounding/nodebackend</small>
+          </div>
+          <div className="leaf">
+            <span>you/chore/bump-axios</span>
+            <small>~/.zokie/tasks/bump-axios/python_apis</small>
+          </div>
+        </div>
+      </div>
+    )
+  if (kind === "models")
+    return (
+      <div className="vis vis-models" aria-hidden="true">
+        <div className="vis-h">
+          <span>Model</span>
+          <span className="ok">Claude Code ✓ · Codex ✓</span>
+        </div>
+        <ul>
+          <li className="on">
+            Fable 5.1 <span>high</span>
+          </li>
+          <li>
+            Opus 5.5 <span>medium</span>
+          </li>
+          <li>
+            Sonnet 5 <span>low</span>
+          </li>
+          <li>
+            GPT-6 Sol <span>high</span>
+          </li>
+          <li>
+            GPT-6 Luna <span>medium</span>
+          </li>
+        </ul>
+      </div>
+    )
+  return (
+    <div className="vis vis-chain" aria-hidden="true">
+      <div className="step you">You</div>
+      <div className="arrow" />
+      <div className="step dev">Dev builds</div>
+      <div className="arrow" />
+      <div className="step test">Test proves</div>
+      <div className="arrow" />
+      <div className="step pr">PR ✓</div>
+      <div className="amber">Needs you · run pnpm add papaparse?</div>
+    </div>
+  )
+}
+
 export default function ZokiePage() {
   return (
     <main className="zk">
@@ -232,49 +307,41 @@ export default function ZokiePage() {
           zokie<span className="dot" />
         </span>
         <h1 id="hero-h">Build Great Things</h1>
-        <p className="lede">
-          A light agent IDE for macOS. Agents write the code, you review the diff. Ten of them, one MacBook, no fan.
-        </p>
+        <p className="lede">A light agent IDE for macOS. Agents write the code, you review the diff.</p>
         <div className="cta">
           <Ext href={DOWNLOAD} className="btn primary">
             Download Zokie
           </Ext>
-          <a href="#demo" className="btn">
-            See it work
-          </a>
+          <span className="fine">macOS · 14 MB · free</span>
         </div>
-        <p className="fine">macOS · about 14 MB · free · bring your Claude Code or Codex</p>
       </section>
 
-      <section className="quotes" aria-label="What people say">
-        <ul>
-          {TESTIMONIALS.map((t) => (
-            <li key={t.quote}>
-              <blockquote>“{t.quote}”</blockquote>
-              <cite>
-                <b>{t.who}</b>, {t.role}
-              </cite>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section id="demo" aria-labelledby="demo-h">
-        <h2 id="demo-h">The Agent Board</h2>
-        <p className="sub">This is the home screen. Click a task to watch its run: Dev builds, Test proves it, the diff fills in.</p>
+      <section id="demo" className="demo" aria-label="The Agent Board">
         <BoardDemo />
+        <p className="cap">The home screen, live. Click a task on the left to replay its run.</p>
       </section>
 
       <section id="features" aria-labelledby="features-h">
-        <h2 id="features-h">Everything in the box</h2>
-        <ul className="features">
-          {FEATURES.map((f) => (
-            <li key={f.title}>
+        <h2 id="features-h" className="sr-only">
+          Features
+        </h2>
+        {FEATURES.map((f, i) => (
+          <article key={f.id} id={f.id} className={`feat ${i % 2 ? "flip" : ""}`}>
+            <div className="feat-text">
               <h3>{f.title}</h3>
               <p>{f.text}</p>
-            </li>
+            </div>
+            <Visual kind={f.visual} />
+          </article>
+        ))}
+        <dl className="also">
+          {ALSO.map(([k, v]) => (
+            <div key={k}>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
           ))}
-        </ul>
+        </dl>
       </section>
 
       <section id="why" aria-labelledby="why-h">
