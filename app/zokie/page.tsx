@@ -529,7 +529,7 @@ export default function ZokiePage() {
       </section>
 
       <section className="end" aria-label="Get an invite">
-        <h2>Be the reviewer, not the typist.</h2>
+        <h2>For the Builders, by the Builder</h2>
         <Ext href={INVITE} className="btn primary">
           Get an invite
         </Ext>
