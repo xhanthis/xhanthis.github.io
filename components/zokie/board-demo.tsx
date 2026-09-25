@@ -124,17 +124,41 @@ const STEP_MS = 1000
 /**
  * A working miniature of the Zokie Agent Board: tasks on the left, the agent chat in the
  * middle, the diff against main on the right. Picking a task replays its run; Replay restarts it.
- * Handles: server render (no timers until mounted), prefers-reduced-motion (jumps to the end),
- * unmount mid-run (timer cleared), switching tasks mid-run (run restarts for the new task).
+ * Handles: server render (no timers until mounted), off-screen (the run waits until the window's top
+ * edge is on screen, so phones do not replay it before anyone scrolls to it; independent of the
+ * window's height, which a ratio threshold was not), prefers-reduced-motion
+ * (jumps to the end), no IntersectionObserver (starts at once), unmount mid-run (timer cleared),
+ * switching tasks mid-run (run restarts for the new task).
  */
 export default function BoardDemo() {
   const [active, setActive] = useState(0)
   const [step, setStep] = useState(0)
   const [run, setRun] = useState(0)
   const reduced = useRef(false)
+  const winRef = useRef<HTMLDivElement>(null)
+  const [seen, setSeen] = useState(false)
   const task = TASKS[active]
   const total = task.chat.length + task.diff.length
   const done = step >= total
+
+  useEffect(() => {
+    const el = winRef.current
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setSeen(true)
+      return
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setSeen(true)
+          io.disconnect()
+        }
+      },
+      { rootMargin: "0px 0px -15% 0px" },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   useEffect(() => {
     reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -143,6 +167,7 @@ export default function BoardDemo() {
       return
     }
     setStep(0)
+    if (!seen) return
     let n = 0
     const id = window.setInterval(() => {
       n += 1
@@ -150,7 +175,7 @@ export default function BoardDemo() {
       if (n >= total) window.clearInterval(id)
     }, STEP_MS)
     return () => window.clearInterval(id)
-  }, [active, run, total])
+  }, [active, run, total, seen])
 
   const chatShown = task.chat.slice(0, Math.min(step, task.chat.length))
   const diffShown = task.diff.slice(0, Math.max(0, step - task.chat.length))
@@ -162,7 +187,7 @@ export default function BoardDemo() {
   const speaker = last === "test" || next === "test" ? "Test" : "Dev"
 
   return (
-    <div className="win" aria-label="Zokie Agent Board demo">
+    <div className="win" ref={winRef} aria-label="Zokie Agent Board demo">
       <div className="win-bar">
         <span className="lights" aria-hidden="true">
           <i />

@@ -14,7 +14,7 @@ Key facts: works with Claude Code natively and with Codex CLI, Gemini CLI and Cu
 
 ## Zokie
 
-- [Zokie](https://xhanthis.github.io/zokie/): a light agent IDE for macOS (about 14 MB, Wails + React). Agents such as Claude Code and Codex write the code in a git worktree per task; you review the diff against main on the Agent Board. God Skills built in, Data mode notebooks, Your Day spend and zen tracking. Download from GitHub releases.
+- [Zokie](https://xhanthis.github.io/zokie/): a light agent IDE for macOS (about 14 MB, Wails + React). Agents such as Claude Code and Codex write the code in a git worktree per task; you review the diff against main on the Agent Board. God Skills built in, Data mode notebooks, Your Day spend and zen tracking. Invite only for now: message @xhanthis on X (https://x.com/xhanthis).
 
 ## About
 

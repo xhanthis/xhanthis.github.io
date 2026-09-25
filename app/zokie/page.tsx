@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next"
 import Link from "next/link"
-import ThemeToggle from "@/components/theme-toggle"
 import BoardDemo from "@/components/zokie/board-demo"
 import Logo from "@/components/zokie/logo"
 import "./zokie.css"
@@ -8,14 +7,14 @@ import "./zokie.css"
 const HOME = "https://xhanthis.github.io/"
 const SITE = `${HOME}zokie/`
 const REPO = "https://github.com/xhanthis/zokie"
-const DOWNLOAD = `${REPO}/releases/latest`
+const INVITE = "https://x.com/xhanthis"
 const GOD = `${HOME}god-skills/`
 const OG_IMAGE = `${HOME}zokie/icon.png`
 const UPDATED = "2026-09-25"
 
 const TITLE = "Zokie | A lightweight agent IDE for builders"
 const DESCRIPTION =
-  "Zokie is a 14 MB native macOS IDE where agents write the code and you review the diff. Run ten Claude Code or Codex agents side by side on one MacBook. Free download."
+  "Zokie is a 14 MB native macOS IDE where agents write the code and you review the diff. Run ten Claude Code or Codex agents side by side on one MacBook. Invite only for now."
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -52,10 +51,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
-  ],
+  themeColor: "#0b0b0b",
+  colorScheme: "dark",
 }
 
 const FEATURES = [
@@ -151,7 +148,7 @@ const FAQ = [
   },
   {
     q: "Is Zokie free?",
-    a: "Yes. Download the app from GitHub releases. You bring your own Claude Code or Codex subscription.",
+    a: "Yes. Zokie is invite only for now: message @xhanthis on X to get one. You bring your own Claude Code or Codex subscription.",
   },
 ]
 
@@ -166,7 +163,6 @@ const jsonLd = {
       url: SITE,
       applicationCategory: "DeveloperApplication",
       operatingSystem: "macOS",
-      downloadUrl: DOWNLOAD,
       codeRepository: REPO,
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -425,6 +421,8 @@ function Visual({ kind }: { kind: string }) {
 export default function ZokiePage() {
   return (
     <main className="zk">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap"
@@ -439,12 +437,6 @@ export default function ZokiePage() {
         <Link href="/" className="home">
           ← Rahul Kulkarni
         </Link>
-        <span className="links">
-          <a href="#features">Features</a>
-          <a href="#faq">FAQ</a>
-          <Ext href={REPO}>GitHub</Ext>
-          <ThemeToggle />
-        </span>
       </nav>
 
       <section className="hero" aria-labelledby="hero-h">
@@ -452,13 +444,12 @@ export default function ZokiePage() {
         <h1 id="hero-h">Build Great Things</h1>
         <p className="lede">
           <span className="lede-main">A lightweight agent IDE for builders.</span>
-          <span className="lede-tail">10 agents write the code at once, you decide what ships.</span>
+          <span className="lede-tail">Run 10 agents in parallel, seamlessly. Ship only what you approve.</span>
         </p>
         <div className="cta">
-          <Ext href={DOWNLOAD} className="btn primary">
-            Download Zokie
+          <Ext href={INVITE} className="btn primary">
+            Get an invite
           </Ext>
-          <span className="fine">macOS · 14 MB · free</span>
         </div>
       </section>
 
@@ -526,20 +517,20 @@ export default function ZokiePage() {
 
       <section id="faq" aria-labelledby="faq-h" className="prose">
         <h2 id="faq-h">Frequently asked questions</h2>
-        <dl className="faq">
+        <div className="faq">
           {FAQ.map((f) => (
-            <div key={f.q}>
-              <dt>{f.q}</dt>
-              <dd>{f.a}</dd>
-            </div>
+            <details key={f.q}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
           ))}
-        </dl>
+        </div>
       </section>
 
-      <section className="end" aria-label="Download">
-        <h2>Be the reviewer, not the typist.</h2>
-        <Ext href={DOWNLOAD} className="btn primary">
-          Download Zokie
+      <section className="end" aria-label="Get an invite">
+        <h2>For the Builders, by the Builder</h2>
+        <Ext href={INVITE} className="btn primary">
+          Get an invite
         </Ext>
       </section>
 
@@ -547,7 +538,6 @@ export default function ZokiePage() {
         <span>
           Built by <Link href="/">Rahul Kulkarni</Link> · 2026
         </span>
-        <Ext href={REPO}>source</Ext>
       </footer>
     </main>
   )
