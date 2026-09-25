@@ -288,6 +288,10 @@ function Visual({ kind }: { kind: string }) {
 export default function ZokiePage() {
   return (
     <main className="zk">
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap"
+      />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <nav className="nav" aria-label="Site">

@@ -97,10 +97,8 @@
   background: var(--accent);
 }
 .zk .hero h1 {
-  font-size: clamp(44px, 7vw, 88px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1;
+  font-size: clamp(56px, 8.6vw, 112px);
+  line-height: 0.98;
   margin: 0 0 20px;
 }
 .zk .lede {
@@ -605,10 +603,8 @@
 }
 .zk .feat h3 {
   margin: 0 0 14px;
-  font-size: clamp(28px, 3.4vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
+  font-size: clamp(36px, 4.2vw, 54px);
+  line-height: 1.04;
 }
 .zk .feat p {
   margin: 0;
@@ -836,7 +832,7 @@
   margin-bottom: 48px;
 }
 .zk .end h2 {
-  font-size: clamp(32px, 4vw, 48px);
+  font-size: clamp(40px, 5vw, 64px);
   margin-bottom: 24px;
 }
 .zk footer {
@@ -924,4 +920,13 @@
   .zk .vis-ten i {
     animation: none;
   }
+}
+
+/* Display font: Instrument Serif on the big lines, system font everywhere else */
+.zk .hero h1,
+.zk .feat h3,
+.zk .end h2 {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
