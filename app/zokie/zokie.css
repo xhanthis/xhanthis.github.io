@@ -149,10 +149,6 @@
   border-color: var(--muted);
   color: var(--bg);
 }
-.zk .fine {
-  font-size: 13px;
-  color: var(--muted);
-}
 
 /* App window (always dark, Zokie's own palette) */
 .zk .demo {

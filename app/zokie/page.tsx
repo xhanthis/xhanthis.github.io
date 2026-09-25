@@ -450,7 +450,6 @@ export default function ZokiePage() {
           <Ext href={INVITE} className="btn primary">
             Get an invite
           </Ext>
-          <span className="fine">macOS · invite only · message @xhanthis on X</span>
         </div>
       </section>
 
