@@ -444,7 +444,7 @@ export default function ZokiePage() {
         <h1 id="hero-h">Build Great Things</h1>
         <p className="lede">
           <span className="lede-main">A lightweight agent IDE for builders.</span>
-          <span className="lede-tail">Seamlessly run 10 agents in parallel, control what you ship.</span>
+          <span className="lede-tail">Run 10 agents in parallel, seamlessly. Ship only what you approve.</span>
         </p>
         <div className="cta">
           <Ext href={INVITE} className="btn primary">
