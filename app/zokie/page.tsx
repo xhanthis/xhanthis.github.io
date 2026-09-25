@@ -89,31 +89,63 @@ const FEATURES = [
   },
 ]
 
-const ALSO = [
-  ["Data mode", "the diff pane becomes a notebook the agents fill in, with Python, pandas and matplotlib ready"],
-  ["Your Day", "spend today against a daily cap, plan limits for each CLI, and a 30-day timeline of what shipped"],
-  ["PR status and Merge", "checks and the merge button on the board, through gh"],
-  ["Terminal and language servers", "one login shell per task; hover and go-to-definition through gopls, pyright and tsserver"],
-  ["Attachments", "drop screenshots and files into the chat; the agent gets the paths"],
-  ["Local by default", "config in a JSON file, chat in SQLite, worktrees on disk, a log with no message text"],
+const MORE = [
+  {
+    id: "data",
+    title: "Data mode",
+    text: "Swap the diff for a notebook. Ask for a chart or a table and the agent fills the cells in; Python, pandas and matplotlib are ready in a uv env, and the file is a plain .ipynb you can open anywhere.",
+  },
+  {
+    id: "day",
+    title: "Your Day",
+    text: "One pill at the top right: spend today against a daily cap, each CLI's plan limits and when they reset, and a 30-day timeline of what shipped, with your hours and Zen score beside it.",
+  },
+  {
+    id: "merge",
+    title: "PR status and Merge",
+    text: "When a task opens a pull request, its checks show on the board. Green means one click to merge, through gh, without leaving the chat.",
+  },
+  {
+    id: "shell",
+    title: "Terminal and language servers",
+    text: "Every task has its own login shell in its own worktree. Hover and go-to-definition come from gopls, pyright and tsserver, so reviewing a diff feels like reading in an editor.",
+  },
+  {
+    id: "attach",
+    title: "Attachments",
+    text: "Drop screenshots, PDFs or CSVs into the chat, several at a time. They show as thumbnails and cards; the agent gets the paths and reads them itself.",
+  },
+  {
+    id: "local",
+    title: "Local by default",
+    text: "Settings in a JSON file you can edit by hand, tasks and chat in SQLite, worktrees on disk, a log with no message text. Agents talk to their providers with your own keys. Nothing else leaves the machine.",
+  },
 ]
 
 const FAQ = [
   {
     q: "What is Zokie?",
-    a: "Zokie is a small native macOS app for working with coding agents. Agents such as Claude Code and Codex write the code inside git worktrees, and you review the diff against main on an Agent Board. It is built in Go with Wails and a React frontend and weighs about 14 MB.",
+    a: "Zokie is a small native macOS app for working with coding agents. Agents such as Claude Code and Codex write the code inside git worktrees, and you review the diff against main on an Agent Board. It is built in Go with Wails and a React frontend, uses the system webview, and weighs about 14 MB.",
   },
   {
     q: "How is Zokie different from Conductor or Cursor?",
-    a: "Zokie is a review surface, not an editor. It runs the first-party Claude Code and Codex CLIs locally, keeps each task in its own worktree, and stays light enough that ten agents run side by side on a laptop. It ships with God Skills, so every run ends in a tested pull request.",
+    a: "Zokie is a review surface, not an editor. It runs the first-party Claude Code and Codex CLIs locally on your own subscriptions, keeps each task in its own worktree on its own branch, and stays light enough that ten agents run side by side on a laptop. God Skills come built in, so every run ends in a tested pull request rather than a wall of edits.",
   },
   {
     q: "What do I need to run it?",
-    a: "macOS and Claude Code (npm install -g @anthropic-ai/claude-code). Codex, gh, uv and language servers are optional and add GPT models, PR status, Data mode and hover.",
+    a: "macOS and Claude Code (npm install -g @anthropic-ai/claude-code). Codex adds the GPT models, gh adds PR status and Merge, uv adds Data mode, and gopls, pyright or typescript-language-server add hover and go-to-definition. All four are optional.",
+  },
+  {
+    q: "Can I still use my editor?",
+    a: "Yes. Every task lives in a normal git worktree under ~/.zokie/tasks, so you can open it in VS Code, Cursor or vim at any time. Zokie is where the agents work and where you review; nothing stops you from editing by hand.",
   },
   {
     q: "Where does my data go?",
-    a: "Nowhere. Settings live in ~/.zokie/config.json, tasks and chat in ~/.zokie/zokie.db, worktrees under ~/.zokie/tasks. The log holds no message text. Agents talk to their own providers with your own keys and subscriptions.",
+    a: "Nowhere. Settings live in ~/.zokie/config.json, tasks and chat in ~/.zokie/zokie.db, worktrees under ~/.zokie/tasks. The log holds no message text. The only network calls are the ones Claude Code and Codex make to their own providers with your keys.",
+  },
+  {
+    q: "What does a task cost?",
+    a: "Whatever the agent's provider charges; Zokie adds nothing. It records Claude Code's cost per turn, shows it on the task, and stops to ask before a turn when today's spend reaches your daily cap. Codex reports tokens, so its plan limits show under Your Day instead.",
   },
   {
     q: "Is Zokie free?",
@@ -138,7 +170,7 @@ const jsonLd = {
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       author: { "@id": `${HOME}#person` },
       dateModified: UPDATED,
-      featureList: [...FEATURES.map((f) => f.title), ...ALSO.map((a) => a[0])],
+      featureList: [...FEATURES.map((f) => f.title), ...MORE.map((m) => m.title)],
     },
     {
       "@type": "Person",
@@ -271,6 +303,109 @@ function Visual({ kind }: { kind: string }) {
         </ul>
       </div>
     )
+  if (kind === "data")
+    return (
+      <div className="ill ill-data" aria-hidden="true">
+        <div className="cell">
+          <span className="n">[3]</span>
+          <code>df.groupby(&quot;city&quot;).revenue.sum().plot.bar()</code>
+        </div>
+        <div className="bars">
+          <i style={{ height: "42%" }} />
+          <i style={{ height: "78%" }} />
+          <i style={{ height: "56%" }} />
+          <i style={{ height: "100%" }} />
+          <i style={{ height: "64%" }} />
+        </div>
+      </div>
+    )
+  if (kind === "day")
+    return (
+      <div className="ill ill-day" aria-hidden="true">
+        <div className="row">
+          <span>Today</span>
+          <b>$3.40 of $8</b>
+        </div>
+        <div className="meter">
+          <i style={{ width: "42%" }} />
+        </div>
+        <div className="row">
+          <span>Zen 82 · 6h 10m</span>
+          <span className="ok">Claude 61% · Codex 18%</span>
+        </div>
+        <div className="days">
+          {[3, 5, 2, 6, 4, 7, 3, 5, 6, 2, 4, 5, 7, 3].map((h, i) => (
+            <i key={i} style={{ height: `${h * 12}%` }} />
+          ))}
+        </div>
+      </div>
+    )
+  if (kind === "merge")
+    return (
+      <div className="ill ill-merge" aria-hidden="true">
+        <div className="row">
+          <b>PR #612</b>
+          <span className="ok">3 checks</span>
+        </div>
+        <ul>
+          <li>
+            <i /> build
+          </li>
+          <li>
+            <i /> tests · 212
+          </li>
+          <li>
+            <i /> review
+          </li>
+        </ul>
+        <div className="vis-merge">Merge</div>
+      </div>
+    )
+  if (kind === "shell")
+    return (
+      <div className="ill ill-shell" aria-hidden="true">
+        <pre>
+          {"$ make test\n"}
+          <span className="ok">{"ok  212 passed  1.8s\n"}</span>
+          {"$ "}
+          <span className="cursor" />
+        </pre>
+        <div className="tip">
+          <code>func refund(amount, share float64) float64</code>
+          <small>payments/refund.go:41</small>
+        </div>
+      </div>
+    )
+  if (kind === "attach")
+    return (
+      <div className="ill ill-attach" aria-hidden="true">
+        <div className="thumb a" />
+        <div className="thumb b" />
+        <div className="file">
+          <b>spec.pdf</b>
+          <small>412 KB</small>
+        </div>
+        <div className="file">
+          <b>bookings.csv</b>
+          <small>10,000 rows</small>
+        </div>
+      </div>
+    )
+  if (kind === "local")
+    return (
+      <div className="ill ill-local" aria-hidden="true">
+        <pre>
+          {"~/.zokie/\n"}
+          {"├─ config.json\n"}
+          {"├─ zokie.db\n"}
+          {"├─ tasks/\n"}
+          {"│  └─ csv-export/ssalliance/\n"}
+          {"├─ notebooks/\n"}
+          {"└─ logs/zokie.log"}
+        </pre>
+        <span className="badge">no message text · nothing sent</span>
+      </div>
+    )
   return (
     <div className="vis vis-chain" aria-hidden="true">
       <div className="step you">You</div>
@@ -326,9 +461,10 @@ export default function ZokiePage() {
       </section>
 
       <section id="features" aria-labelledby="features-h">
-        <h2 id="features-h" className="sr-only">
-          Features
-        </h2>
+        <div className="sec-h">
+          <h2 id="features-h">What makes it different</h2>
+          <p>Five things Zokie does that an editor with a chat panel does not.</p>
+        </div>
         {FEATURES.map((f, i) => (
           <article key={f.id} id={f.id} className={`feat ${i % 2 ? "flip" : ""}`}>
             <div className="feat-text">
@@ -338,31 +474,50 @@ export default function ZokiePage() {
             <Visual kind={f.visual} />
           </article>
         ))}
-        <dl className="also">
-          {ALSO.map(([k, v]) => (
-            <div key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
       </section>
 
-      <section id="why" aria-labelledby="why-h">
+      <section id="more" aria-labelledby="more-h">
+        <div className="sec-h">
+          <h2 id="more-h">And the rest of the box</h2>
+          <p>Smaller things you will use every day.</p>
+        </div>
+        <ul className="more">
+          {MORE.map((m) => (
+            <li key={m.id} id={m.id}>
+              <Visual kind={m.id} />
+              <h3>{m.title}</h3>
+              <p>{m.text}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section id="why" aria-labelledby="why-h" className="prose">
         <h2 id="why-h">Why another IDE</h2>
         <p>
-          I ship code on the side and did it in VS Code for years. Then agents arrived and the editor became the bottleneck:
-          three or four of them would bring my MacBook to a halt. Today you can have ten working for you in parallel; the tools
-          were just too heavy to hold it.
+          I am a product manager who ships code on the side, and for years I did it in VS Code. It was fine. Then agents
+          arrived, and the editor became the bottleneck. With three or four of them running at once, VS Code and everything
+          around it would bring my MacBook to a halt, fans first, then the cursor.
         </p>
         <p>
-          <Ext href={GOD}>God Skills</Ext> was the first step: every job goes to a specialist agent with its own rules, checks and
-          memory. Zokie is the second: a small native app built around those agents, where they write and I review. That is how I
-          get from 10x to 100x.
+          That limit no longer makes sense. Today you can have ten agents working for you in parallel, each on its own
+          branch, each waiting for nothing but your review. The work was never the problem. The tools were too heavy to hold
+          it.
+        </p>
+        <p>
+          So I fixed it in two steps. <Ext href={GOD}>God Skills</Ext> came first: every job goes to a specialist agent with
+          its own rules, its own checks and a memory of what went wrong last time. That alone made me about ten times faster.
+        </p>
+        <p>
+          Zokie is the second step. It is a small native app built around those agents, where they write the code and I read
+          the diff. It stays light enough to keep ten of them running side by side, and that is how I get from 10x to 100x.
+        </p>
+        <p className="sig">
+          <Ext href={HOME}>— Rahul</Ext> <span>(Founder)</span>
         </p>
       </section>
 
-      <section id="faq" aria-labelledby="faq-h">
+      <section id="faq" aria-labelledby="faq-h" className="prose">
         <h2 id="faq-h">Frequently asked questions</h2>
         <dl className="faq">
           {FAQ.map((f) => (

@@ -788,42 +788,23 @@
   background: rgba(224, 168, 74, 0.12);
   font-size: 13px;
 }
-.zk .also {
-  margin: 24px 0 0;
-  padding-top: 48px;
-  border-top: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 28px 40px;
-}
-.zk .also dt {
-  font-weight: 650;
-  margin-bottom: 4px;
-}
-.zk .also dd {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.55;
-}
 
 /* Why, FAQ, end */
-.zk #why,
-.zk #faq {
-  max-width: 680px;
-}
 .zk .faq {
   margin: 0;
 }
 .zk .faq div + div {
-  margin-top: 20px;
+  margin-top: 28px;
 }
 .zk .faq dt {
   font-weight: 650;
+  font-size: 17px;
 }
 .zk .faq dd {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
 }
 .zk .end {
   text-align: center;
@@ -878,7 +859,7 @@
   .zk .feat.flip .feat-text {
     order: 0;
   }
-  .zk .also {
+  .zk .more {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -905,7 +886,7 @@
   .zk .modes {
     display: none;
   }
-  .zk .also {
+  .zk .more {
     grid-template-columns: 1fr;
   }
   .zk .vis-ten {
@@ -925,8 +906,306 @@
 /* Display font: Instrument Serif on the big lines, system font everywhere else */
 .zk .hero h1,
 .zk .feat h3,
+.zk .sec-h h2,
+.zk .prose h2,
 .zk .end h2 {
   font-family: "Instrument Serif", Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.01em;
+}
+
+/* Section headings, centred */
+.zk .sec-h {
+  text-align: center;
+  margin: 0 auto 8px;
+  max-width: 640px;
+}
+.zk .sec-h h2,
+.zk .prose h2 {
+  font-size: clamp(38px, 4.6vw, 56px);
+  line-height: 1.05;
+  margin: 0 0 12px;
+}
+.zk .sec-h p {
+  margin: 0;
+  font-size: 18px;
+  color: var(--muted);
+}
+.zk #features .sec-h {
+  margin-bottom: 16px;
+}
+.zk .feat:first-of-type {
+  border-top: 0;
+}
+
+/* Six smaller features */
+.zk .more {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.zk .more li {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid var(--line);
+  background: var(--box);
+  border-radius: 18px;
+  padding: 18px 22px 24px;
+  min-width: 0;
+}
+.zk .more h3 {
+  margin: 18px 0 8px;
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.zk .more p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.zk .ill {
+  width: 100%;
+  height: 172px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  overflow: hidden;
+}
+.zk .ill .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+}
+.zk .ill .row b {
+  color: var(--fg);
+  font-weight: 600;
+}
+.zk .ill code,
+.zk .ill pre {
+  font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.zk .ill-data .cell {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--box);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.zk .ill-data .n {
+  color: var(--accent);
+  font: 11px ui-monospace, Menlo, monospace;
+  flex: none;
+}
+.zk .ill-data .bars,
+.zk .ill-day .days {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 0 6px;
+}
+.zk .ill-data .bars i {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: var(--accent);
+  opacity: 0.85;
+}
+.zk .ill-day .meter {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+}
+.zk .ill-day .meter i {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--fg);
+}
+.zk .ill-day .days {
+  gap: 4px;
+  padding: 0;
+}
+.zk .ill-day .days i {
+  flex: 1;
+  border-radius: 2px;
+  background: var(--line);
+}
+.zk .ill-day .days i:last-child {
+  background: var(--ok);
+}
+.zk .ill-merge ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--muted);
+}
+.zk .ill-merge li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.zk .ill-merge li i {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex: none;
+}
+.zk .ill-merge .vis-merge {
+  align-self: stretch;
+  text-align: center;
+  padding: 7px;
+}
+.zk .ill-shell {
+  justify-content: flex-start;
+}
+.zk .ill-shell pre {
+  margin: 0;
+  color: var(--fg);
+  white-space: pre;
+}
+.zk .ill-shell .cursor {
+  display: inline-block;
+  width: 7px;
+  height: 13px;
+  background: var(--fg);
+  vertical-align: text-bottom;
+  animation: zk-blink 1.2s steps(1) infinite;
+}
+.zk .ill-shell .tip {
+  margin-top: auto;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--box);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.zk .ill-shell .tip small {
+  color: var(--muted);
+  font-size: 11px;
+}
+.zk .ill-attach {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.zk .thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.zk .thumb.a {
+  background: linear-gradient(135deg, var(--accent), #5fcb8f);
+}
+.zk .thumb.b {
+  background: linear-gradient(135deg, #f0836a, #e0a84a);
+}
+.zk .ill-attach .file {
+  flex: 1 1 100px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--box);
+}
+.zk .ill-attach .file b {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.zk .ill-attach .file small {
+  color: var(--muted);
+  font-size: 11px;
+}
+.zk .ill-local pre {
+  margin: 0;
+  color: var(--fg);
+}
+.zk .ill-local .badge {
+  align-self: flex-start;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--box);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* Centred prose sections */
+.zk .prose {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.zk .prose h2 {
+  margin-bottom: 28px;
+}
+.zk .prose p {
+  font-size: 18px;
+  line-height: 1.65;
+  margin: 0 0 1.1em;
+}
+.zk .prose .sig {
+  margin-top: 28px;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 28px;
+  line-height: 1.2;
+}
+.zk .prose .sig a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.zk .prose .sig a:hover {
+  border-color: var(--fg);
+}
+.zk .prose .sig span {
+  color: var(--muted);
+  font-size: 18px;
+  font-family: inherit;
+}
+.zk .prose .faq {
+  text-align: left;
+}
+.zk .prose .faq dt {
+  text-align: center;
+}
+.zk .prose .faq dd {
+  text-align: center;
 }
