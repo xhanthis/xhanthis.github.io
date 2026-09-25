@@ -1156,6 +1156,7 @@
 .zk .ill-local pre {
   margin: 0;
   color: var(--fg);
+  line-height: 1.4;
 }
 .zk .ill-local .badge {
   align-self: flex-start;
