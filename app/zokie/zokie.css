@@ -102,11 +102,23 @@
   margin: 0 0 20px;
 }
 .zk .lede {
-  font-size: 20px;
+  max-width: 620px;
+  margin: 0 0 32px;
+}
+.zk .lede-main {
+  display: block;
+  font-size: 23px;
+  line-height: 1.4;
+  color: var(--fg);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.zk .lede-tail {
+  display: block;
+  margin-top: 6px;
+  font-size: 18px;
   line-height: 1.5;
   color: var(--muted);
-  max-width: 520px;
-  margin: 0 0 32px;
 }
 .zk .cta {
   display: flex;

@@ -446,7 +446,10 @@ export default function ZokiePage() {
           zokie<span className="dot" />
         </span>
         <h1 id="hero-h">Build Great Things</h1>
-        <p className="lede">A light agent IDE for macOS. Agents write the code, you review the diff.</p>
+        <p className="lede">
+          <span className="lede-main">A lightweight agent IDE for remarkable people.</span>
+          <span className="lede-tail">Ten agents write the code. You decide what ships.</span>
+        </p>
         <div className="cta">
           <Ext href={DOWNLOAD} className="btn primary">
             Download Zokie
