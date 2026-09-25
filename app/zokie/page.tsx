@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next"
 import Link from "next/link"
-import ThemeToggle from "@/components/theme-toggle"
 import BoardDemo from "@/components/zokie/board-demo"
 import Logo from "@/components/zokie/logo"
 import "./zokie.css"
@@ -52,10 +51,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
-  ],
+  themeColor: "#0b0b0b",
+  colorScheme: "dark",
 }
 
 const FEATURES = [
@@ -425,6 +422,8 @@ function Visual({ kind }: { kind: string }) {
 export default function ZokiePage() {
   return (
     <main className="zk">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap"
@@ -439,12 +438,6 @@ export default function ZokiePage() {
         <Link href="/" className="home">
           ← Rahul Kulkarni
         </Link>
-        <span className="links">
-          <a href="#features">Features</a>
-          <a href="#faq">FAQ</a>
-          <Ext href={REPO}>GitHub</Ext>
-          <ThemeToggle />
-        </span>
       </nav>
 
       <section className="hero" aria-labelledby="hero-h">
@@ -547,7 +540,6 @@ export default function ZokiePage() {
         <span>
           Built by <Link href="/">Rahul Kulkarni</Link> · 2026
         </span>
-        <Ext href={REPO}>source</Ext>
       </footer>
     </main>
   )
