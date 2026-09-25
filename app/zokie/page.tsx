@@ -7,14 +7,14 @@ import "./zokie.css"
 const HOME = "https://xhanthis.github.io/"
 const SITE = `${HOME}zokie/`
 const REPO = "https://github.com/xhanthis/zokie"
-const DOWNLOAD = `${REPO}/releases/latest`
+const INVITE = "https://x.com/xhanthis"
 const GOD = `${HOME}god-skills/`
 const OG_IMAGE = `${HOME}zokie/icon.png`
 const UPDATED = "2026-09-25"
 
 const TITLE = "Zokie | A lightweight agent IDE for builders"
 const DESCRIPTION =
-  "Zokie is a 14 MB native macOS IDE where agents write the code and you review the diff. Run ten Claude Code or Codex agents side by side on one MacBook. Free download."
+  "Zokie is a 14 MB native macOS IDE where agents write the code and you review the diff. Run ten Claude Code or Codex agents side by side on one MacBook. Invite only for now."
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -148,7 +148,7 @@ const FAQ = [
   },
   {
     q: "Is Zokie free?",
-    a: "Yes. Download the app from GitHub releases. You bring your own Claude Code or Codex subscription.",
+    a: "Yes. Zokie is invite only for now: message @xhanthis on X to get one. You bring your own Claude Code or Codex subscription.",
   },
 ]
 
@@ -163,7 +163,6 @@ const jsonLd = {
       url: SITE,
       applicationCategory: "DeveloperApplication",
       operatingSystem: "macOS",
-      downloadUrl: DOWNLOAD,
       codeRepository: REPO,
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -448,10 +447,10 @@ export default function ZokiePage() {
           <span className="lede-tail">10 agents write the code at once, you decide what ships.</span>
         </p>
         <div className="cta">
-          <Ext href={DOWNLOAD} className="btn primary">
-            Download Zokie
+          <Ext href={INVITE} className="btn primary">
+            Get an invite
           </Ext>
-          <span className="fine">macOS · 14 MB · free</span>
+          <span className="fine">macOS · invite only · message @xhanthis on X</span>
         </div>
       </section>
 
@@ -529,10 +528,10 @@ export default function ZokiePage() {
         </dl>
       </section>
 
-      <section className="end" aria-label="Download">
+      <section className="end" aria-label="Get an invite">
         <h2>Be the reviewer, not the typist.</h2>
-        <Ext href={DOWNLOAD} className="btn primary">
-          Download Zokie
+        <Ext href={INVITE} className="btn primary">
+          Get an invite
         </Ext>
       </section>
 
